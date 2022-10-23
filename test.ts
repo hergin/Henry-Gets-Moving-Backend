@@ -12,7 +12,7 @@
 |
 */
 
-process.env.NODE_ENV = 'test'
+process.env.NODE_ENV = 'testing'
 
 import 'reflect-metadata'
 import sourceMapSupport from 'source-map-support'
