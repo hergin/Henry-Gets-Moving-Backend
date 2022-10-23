@@ -19,6 +19,13 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
+import UsersController from "App/Controllers/Http/UsersController";
+
+Route.resource("users", "UsersController").apiOnly().except(["destroy", "update", "index"]);
+
+Route.post("/users/login", (ctx) => {
+    return new UsersController().login(ctx);
+});
 
 Route.get('/', async () => {
     return { hello: 'world' }
