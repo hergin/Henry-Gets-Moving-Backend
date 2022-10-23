@@ -1,4 +1,4 @@
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import type {HttpContextContract} from "@ioc:Adonis/Core/HttpContext";
 import User from "App/Models/User";
 import {schema} from "@ioc:Adonis/Core/Validator";
 
@@ -25,6 +25,23 @@ export default class UsersController {
         await newUser.save();
 
         return newUser;
+
+    }
+
+    public async login({request, auth, response}: HttpContextContract){
+        const loginSchema = schema.create({
+            email: schema.string({trim: true})
+        })
+
+        const userEmail  = await request.validate({schema: loginSchema});
+        const user = await User.findBy("email", userEmail);
+        if(user) {
+            return await auth.use('api').generate(user);
+        }
+        else {
+            response.badRequest("User does not exist");
+            return;
+        }
 
     }
 
