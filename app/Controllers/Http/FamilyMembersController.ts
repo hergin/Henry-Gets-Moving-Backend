@@ -6,6 +6,12 @@ import User from "App/Models/User";
 import FamilyMember from "App/Models/FamilyMember";
 
 export default class FamilyMembersController {
+    public async index({ params, auth }: HttpContextContract){
+        await auth.use("api").authenticate();
+        const signedInUser = await User.findOrFail(params.id);
+        return FamilyMember.query().where("userID", signedInUser.id);
+    }
+
     public async store({ request }: HttpContextContract) {
         const familyMemberSchema = schema.create({
             name: schema.string(),
