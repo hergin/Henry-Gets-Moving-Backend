@@ -11,6 +11,8 @@
     "outDir": "build",
     "rootDir": "./",
     "sourceMap": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "paths": {
       "App/*": [
         "./app/*"
