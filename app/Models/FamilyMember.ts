@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
-import {BaseModel, BelongsTo, belongsTo, column} from "@ioc:Adonis/Lucid/Orm";
-import User from "App/Models/User";
+import {BaseModel, BelongsTo, belongsTo, column, hasMany, HasMany} from "@ioc:Adonis/Lucid/Orm";
+import User from 'App/Models/User'
+import ExerciseLog from "App/Models/ExerciseLog";
 
 export default class FamilyMember extends BaseModel {
     @column({ isPrimary: true })
@@ -19,5 +20,8 @@ export default class FamilyMember extends BaseModel {
     public updatedAt: DateTime
 
     @belongsTo(() => User)
-    public user: BelongsTo<typeof User>;
+    public user: BelongsTo<typeof User>
+
+    @hasMany(() => ExerciseLog)
+    public exerciseLog: HasMany<typeof ExerciseLog>
 }

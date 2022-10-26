@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
-import {column, BaseModel, hasMany, HasMany} from "@ioc:Adonis/Lucid/Orm";
-import FamilyMember from "App/Models/FamilyMember";
+import {column, BaseModel, hasMany, HasMany, hasManyThrough, HasManyThrough} from "@ioc:Adonis/Lucid/Orm";
+import FamilyMember from 'App/Models/FamilyMember'
+import ExerciseLog from "App/Models/ExerciseLog";
 
 export default class User extends BaseModel {
     @column({ isPrimary: true })
@@ -20,4 +21,10 @@ export default class User extends BaseModel {
 
     @hasMany(() => FamilyMember)
     public familyMembers: HasMany<typeof FamilyMember>
+
+    @hasManyThrough([
+        () => ExerciseLog,
+        () => FamilyMember,
+    ])
+    public exerciseLog: HasManyThrough<typeof ExerciseLog>
 }
