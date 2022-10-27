@@ -6,6 +6,5 @@ export default Factory.define(User, ({faker})=>{
   return {
     id: faker.datatype.number(),
     email: faker.internet.email(),
-    rememberMeToken: faker.datatype.string(),
   };
-}).relation('familyMembers',()=>FamilyMemberFactory).build();
+}).build();
