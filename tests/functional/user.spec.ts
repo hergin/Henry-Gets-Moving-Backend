@@ -6,8 +6,8 @@ test.group('User', () => {
   test('stores user info in the database', async ({
     assert, client
   }) => {
-    let user = await UserFactory.create();
-    const result = await client.post('/user').send(user).end();
+    await UserFactory.query().create();
+    const result = await client.post('/users');
     result.assertStatus(201);
 
     assert.isDefined(result.body.id);
