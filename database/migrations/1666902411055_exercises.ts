@@ -9,7 +9,7 @@ export default class extends BaseSchema {
 
       table.string('name').notNullable();
       table.string('videoLink').nullable();
-      table.boolean('isFeatured');
+      table.boolean('isFeatured').notNullable();
       table.integer('categoryID').unsigned().notNullable().references('ExerciseCategory.id');
 
       table.timestamp('created_at', { useTz: true }).notNullable().defaultTo(this.now());
