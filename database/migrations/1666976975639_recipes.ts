@@ -10,6 +10,7 @@ export default class extends BaseSchema {
       table.string('name').notNullable()
       table.string('thumbnail').notNullable()
       table.integer('categoryID').notNullable().unsigned().references('recipe_categories.id')
+      table.boolean('isFeatured').notNullable().defaultTo(false)
 
       table.timestamp('created_at', { useTz: true }).notNullable().defaultTo(this.now())
       table.timestamp('updated_at', { useTz: true }).notNullable().defaultTo(this.now())
