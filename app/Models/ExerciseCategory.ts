@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, HasMany, hasMany } from "@ioc:Adonis/Lucid/Orm";
-import Exercise from "App/Models/Exercise";
+import { BaseModel, column, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
+import Exercise from 'App/Models/Exercise'
 
 export default class ExerciseCategory extends BaseModel {
     @column({ isPrimary: true })
