@@ -1,5 +1,3 @@
-// import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-
 import { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import { schema } from "@ioc:Adonis/Core/Validator";
 import Recipe from 'App/Models/Recipe';
