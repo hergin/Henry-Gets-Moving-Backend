@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, HasMany } from '@ioc:Adonis/Lucid/Orm'
-import {ExerciseCategory} from 'App/Models/ExerciseCategory'
+import { BaseModel, BelongsTo, belongsTo, column } from "@ioc:Adonis/Lucid/Orm";
+import ExerciseCategory from 'App/Models/ExerciseCategory'
 
 export default class Exercise extends BaseModel {
   @column({ isPrimary: true })
@@ -24,7 +24,7 @@ export default class Exercise extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
-  @hasMany(() => ExerciseCategory)
-  public categories: HasMany<typeof ExerciseCategory>
+  @belongsTo(() => ExerciseCategory)
+  public categories: BelongsTo<typeof ExerciseCategory>
 
 }
