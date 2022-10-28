@@ -6,10 +6,10 @@ export default class extends BaseSchema {
     public async up() {
         this.schema.createTable(this.tableName, (table) => {
             table.increments('id')
-            table.string("type").notNullable()
-            table.enum("intensity", ["Light", "Moderate", "Vigorous"]).notNullable()
-            table.integer("duration").notNullable()
-            table.integer("familyMemberID").notNullable().unsigned().references("family_members.id")
+            table.string('type').notNullable()
+            table.enum('intensity', ['Light', 'Moderate', 'Vigorous']).notNullable()
+            table.integer('duration').notNullable()
+            table.integer('familyMemberID').notNullable().unsigned().references('family_members.id')
 
             /**
              * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
