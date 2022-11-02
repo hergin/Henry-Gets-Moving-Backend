@@ -25,4 +25,10 @@ export default class RecipeCategoriesController {
         await recipeCategory.save()
         return recipeCategory
     }
+
+    public async destroy({ params }: HttpContextContract) {
+        let recipeCategory = await RecipeCategory.findOrFail(params.id)
+        await recipeCategory.delete()
+        return recipeCategory
+    }
 }
