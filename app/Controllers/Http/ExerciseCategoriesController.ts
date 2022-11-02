@@ -3,6 +3,10 @@ import { schema } from '@ioc:Adonis/Core/Validator'
 import ExerciseCategory from 'App/Models/ExerciseCategory'
 
 export default class ExerciseCategoriesController {
+    public async index({}: HttpContextContract) {
+        return ExerciseCategory.query().orderBy('name')
+    }
+
     public async store({ request }: HttpContextContract) {
         const exerciseCategorySchema = schema.create({
             name: schema.string(),
