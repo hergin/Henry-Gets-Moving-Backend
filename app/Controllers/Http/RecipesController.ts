@@ -30,4 +30,10 @@ export default class RecipesController {
         await recipe.save()
         return recipe
     }
+
+    public async destroy({ params }: HttpContextContract) {
+        let recipe = await Recipe.findOrFail(params.id)
+        await recipe.delete()
+        return recipe
+    }
 }
