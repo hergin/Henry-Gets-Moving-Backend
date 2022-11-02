@@ -1,9 +1,8 @@
-import { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
-import { schema } from "@ioc:Adonis/Core/Validator";
-import Recipe from 'App/Models/Recipe';
+import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import { schema } from '@ioc:Adonis/Core/Validator'
+import Recipe from 'App/Models/Recipe'
 
 export default class RecipesController {
-
     public async index({}: HttpContextContract) {}
 
     public async store({ request, response }: HttpContextContract) {
@@ -14,10 +13,10 @@ export default class RecipesController {
             categoryID: schema.number(),
         })
 
-        const requestBody = await request.validate({schema: recipeSchema});
+        const requestBody = await request.validate({ schema: recipeSchema })
         const name = requestBody.name
 
-        if ((await Recipe.findBy('name',name))!==null) {
+        if ((await Recipe.findBy('name', name)) !== null) {
             response.badRequest('Recipe already exists')
             return
         }
@@ -28,5 +27,4 @@ export default class RecipesController {
         recipe.isFeatured = requestBody.isFeatured
         recipe.categoryID = requestBody.categoryID
     }
-
 }
