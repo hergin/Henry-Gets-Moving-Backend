@@ -26,6 +26,10 @@ export default class RecipeCategoriesController {
         return recipeCategory
     }
 
+    public async show({ params }: HttpContextContract) {
+        return RecipeCategory.query().where('id', params.id).preload('recipe')[0]
+    }
+
     public async destroy({ params }: HttpContextContract) {
         let recipeCategory = await RecipeCategory.findOrFail(params.id)
         await recipeCategory.delete()
