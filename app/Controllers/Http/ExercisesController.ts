@@ -12,6 +12,10 @@ export default class ExercisesController {
             .paginate(page, limit)
     }
 
+    public async getFeatured({}: HttpContextContract) {
+        return Exercise.query().where('isFeatured', true).preload('exerciseCategory')
+    }
+
     public async store({ request, response }: HttpContextContract) {
         const exerciseSchema = schema.create({
             name: schema.string({ trim: true }),
