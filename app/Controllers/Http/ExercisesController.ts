@@ -31,4 +31,10 @@ export default class ExercisesController {
         await exercise.save()
         return exercise
     }
+
+    public async destroy({ params }: HttpContextContract) {
+        let exercise = await Exercise.findOrFail(params.id)
+        await exercise.delete()
+        return exercise
+    }
 }
