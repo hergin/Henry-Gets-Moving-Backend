@@ -43,6 +43,10 @@ export default class ExercisesController {
         return exercise
     }
 
+    public async show({ params }: HttpContextContract) {
+        return Exercise.query().where('id', params.id).preload('exerciseCategory')[0]
+    }
+
     public async destroy({ params }: HttpContextContract) {
         let exercise = await Exercise.findOrFail(params.id)
         await exercise.delete()
