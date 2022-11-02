@@ -27,5 +27,8 @@ export default class ExercisesController {
         exercise.videoLink = requestBody.videoLink
         exercise.isFeatured = requestBody.isFeatured
         exercise.categoryID = requestBody.categoryID
+
+        await exercise.save()
+        return exercise
     }
 }

@@ -26,5 +26,8 @@ export default class RecipesController {
         recipe.thumbnail = requestBody.thumbnail
         recipe.isFeatured = requestBody.isFeatured
         recipe.categoryID = requestBody.categoryID
+
+        await recipe.save()
+        return recipe
     }
 }
