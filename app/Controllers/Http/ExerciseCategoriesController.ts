@@ -16,4 +16,10 @@ export default class ExerciseCategoriesController {
         await exerciseCategory.save()
         return exerciseCategory
     }
+
+    public async destroy({ params }: HttpContextContract) {
+        let exerciseCategory = await ExerciseCategory.findOrFail(params.id)
+        await exerciseCategory.delete()
+        return exerciseCategory
+    }
 }
