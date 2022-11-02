@@ -9,6 +9,10 @@ export default class RecipesController {
         return Recipe.query().preload('recipeCategory').orderBy('created_at').paginate(page, limit)
     }
 
+    public async getFeatured({}: HttpContextContract) {
+        return Recipe.query().where('isFeatured', true).preload('recipeCategory')
+    }
+
     public async store({ request, response }: HttpContextContract) {
         const recipeSchema = schema.create({
             name: schema.string({ trim: true }),
