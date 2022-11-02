@@ -28,7 +28,12 @@ export default class FamilyMembersController {
         return familyMember
     }
 
-    public async show({ params }: HttpContextContract) {
-        return FamilyMember.query().where('id', params.id).preload('exerciseLog')
+    public async show({ params, auth }: HttpContextContract) {
+        await auth.use('api').authenticate()
+        const signedInUser = await User.findOrFail(params.id)
+        return FamilyMember.query()
+            .where('id', params.id)
+            .where('userID', signedInUser.id)
+            .preload('exerciseLog')
     }
 }
