@@ -27,4 +27,8 @@ export default class FamilyMembersController {
 
         return familyMember
     }
+
+    public async show({ params }: HttpContextContract) {
+        return FamilyMember.query().where('id', params.id).preload('exerciseLog')
+    }
 }
