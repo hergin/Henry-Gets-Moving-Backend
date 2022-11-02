@@ -3,6 +3,10 @@ import { schema } from '@ioc:Adonis/Core/Validator'
 import RecipeCategory from 'App/Models/RecipeCategory'
 
 export default class RecipeCategoriesController {
+    public async index({}: HttpContextContract) {
+        return RecipeCategory.query().orderBy('name')
+    }
+
     public async store({ request, response }: HttpContextContract) {
         const recipeCategorySchema = schema.create({
             name: schema.string(),
