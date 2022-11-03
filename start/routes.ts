@@ -21,7 +21,10 @@
 import Route from '@ioc:Adonis/Core/Route'
 import UsersController from 'App/Controllers/Http/UsersController'
 
-Route.resource('users', 'UsersController').apiOnly().except(['destroy', 'update', 'index'])
+Route.resource('users', 'UsersController')
+    .apiOnly()
+    .except(['destroy', 'update', 'index'])
+    .middleware({ show: 'auth' })
 Route.resource('familyMembers', 'FamilyMembersController').apiOnly().middleware({ show: 'auth' })
 Route.resource('exerciseLogs', 'ExerciseLogsController').apiOnly()
 Route.resource('exerciseCategories', 'ExerciseCategoriesController').apiOnly()
