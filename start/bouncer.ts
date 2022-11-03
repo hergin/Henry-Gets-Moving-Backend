@@ -6,6 +6,8 @@
  */
 
 import Bouncer from '@ioc:Adonis/Addons/Bouncer'
+import User from 'App/Models/User'
+import FamilyMember from 'App/Models/FamilyMember'
 
 /*
 |--------------------------------------------------------------------------
@@ -29,7 +31,12 @@ import Bouncer from '@ioc:Adonis/Addons/Bouncer'
 | NOTE: Always export the "actions" const from this file
 |****************************************************************
 */
-export const { actions } = Bouncer
+export const { actions } = Bouncer.define(
+    'viewFamilyMember',
+    (user: User, familyMemberToView: FamilyMember) => {
+        return user.id === familyMemberToView.user_id
+    }
+)
 
 /*
 |--------------------------------------------------------------------------

@@ -22,11 +22,12 @@ export default class FamilyMembersController {
         return familyMember
     }
 
-    public async show({ params, auth }: HttpContextContract) {
+    public async show({ params, auth, bouncer }: HttpContextContract) {
         await auth.use('api').authenticate()
-        const familyMember = await FamilyMember.query().where('id', params.id)[0]
+        const familyMember = await FamilyMember.findOrFail(params.id)
+        await familyMember.load('exerciseLog')
         console.log(familyMember)
-        // await bouncer.authorize('viewFamilyMember', familyMember)
+        await bouncer.authorize('viewFamilyMember', familyMember)
         return familyMember
     }
 }
