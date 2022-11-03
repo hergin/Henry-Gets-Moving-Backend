@@ -8,7 +8,7 @@ export default class ExerciseLogsController {
             type: schema.string(),
             intensity: schema.string(),
             duration: schema.number(),
-            familyMemberID: schema.number(),
+            family_member_id: schema.number(),
         })
 
         const exerciseLogPayload = await request.validate({ schema: exerciseLogSchema })
@@ -18,7 +18,7 @@ export default class ExerciseLogsController {
         exerciseLog.type = exerciseLogPayload.type
         exerciseLog.intensity = exerciseLogPayload.intensity
         exerciseLog.duration = exerciseLogPayload.duration
-        exerciseLog.familyMemberID = exerciseLogPayload.familyMemberID
+        exerciseLog.family_member_id = exerciseLogPayload.family_member_id
 
         await exerciseLog.save()
         return exerciseLog

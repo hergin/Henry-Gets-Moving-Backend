@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import FamilyMember from 'App/Models/FamilyMember'
 
 export default class ExerciseLog extends BaseModel {
     @column({ isPrimary: true })
@@ -15,11 +16,14 @@ export default class ExerciseLog extends BaseModel {
     public duration: number
 
     @column()
-    public familyMemberID: number
+    public family_member_id: number
 
     @column.dateTime({ autoCreate: true })
     public createdAt: DateTime
 
     @column.dateTime({ autoCreate: true, autoUpdate: true })
     public updatedAt: DateTime
+
+    @belongsTo(() => FamilyMember)
+    public familyMember: BelongsTo<typeof FamilyMember>
 }

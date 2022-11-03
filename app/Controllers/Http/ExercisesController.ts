@@ -21,7 +21,7 @@ export default class ExercisesController {
             name: schema.string({ trim: true }),
             videoLink: schema.string({ trim: true }),
             isFeatured: schema.boolean(),
-            categoryID: schema.number(),
+            category_id: schema.number(),
         })
 
         const requestBody = await request.validate({ schema: exerciseSchema })
@@ -37,7 +37,7 @@ export default class ExercisesController {
         exercise.name = name
         exercise.videoLink = requestBody.videoLink
         exercise.isFeatured = requestBody.isFeatured
-        exercise.categoryID = requestBody.categoryID
+        exercise.category_id = requestBody.category_id
 
         await exercise.save()
         return exercise

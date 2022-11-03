@@ -18,7 +18,7 @@ export default class RecipesController {
             name: schema.string({ trim: true }),
             thumbnail: schema.string({ trim: true }),
             isFeatured: schema.boolean(),
-            categoryID: schema.number(),
+            category_id: schema.number(),
         })
 
         const requestBody = await request.validate({ schema: recipeSchema })
@@ -33,7 +33,7 @@ export default class RecipesController {
         recipe.name = name
         recipe.thumbnail = requestBody.thumbnail
         recipe.isFeatured = requestBody.isFeatured
-        recipe.categoryID = requestBody.categoryID
+        recipe.category_id = requestBody.category_id
 
         await recipe.save()
         return recipe

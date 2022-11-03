@@ -10,7 +10,7 @@ export default class extends BaseSchema {
             table.string('videoLink')
             table.boolean('isFeatured').notNullable().defaultTo(false)
             table
-                .integer('categoryID')
+                .integer('category_id')
                 .notNullable()
                 .unsigned()
                 .references('exercise_categories.id')

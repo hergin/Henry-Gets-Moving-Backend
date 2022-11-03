@@ -11,7 +11,7 @@ export default class FamilyMember extends BaseModel {
     public name: string
 
     @column()
-    public userID: number
+    public user_id: number
 
     @column.dateTime({ autoCreate: true })
     public createdAt: DateTime
