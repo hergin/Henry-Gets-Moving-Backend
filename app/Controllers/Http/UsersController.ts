@@ -42,7 +42,11 @@ export default class UsersController {
         }
     }
 
-    public async show({}: HttpContextContract) {}
+    public async show({ params, auth }: HttpContextContract) {
+        await auth.use('api').authenticate()
+        const signedInUser = await User.findOrFail(params.id)
+        return User.query().where('userID', signedInUser.id).preload('familyMembers')
+    }
 
     public async update({}: HttpContextContract) {}
 
