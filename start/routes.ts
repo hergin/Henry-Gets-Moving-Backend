@@ -23,10 +23,17 @@ import UsersController from 'App/Controllers/Http/UsersController'
 
 Route.resource('users', 'UsersController').apiOnly().except(['destroy', 'update', 'index'])
 Route.resource('familyMembers', 'FamilyMembersController').apiOnly().middleware({ show: 'auth' })
+Route.resource('exerciseLogs', 'ExerciseLogsController').apiOnly()
+Route.resource('exerciseCategories', 'ExerciseCategoriesController').apiOnly()
+Route.resource('exercises', 'ExercisesController').apiOnly()
+Route.resource('recipeCategories', 'RecipeCategoriesController').apiOnly()
+Route.resource('recipes', 'RecipesController').apiOnly()
 
 Route.post('/users/login', (ctx) => {
     return new UsersController().login(ctx)
 })
+
+Route.get('/recipe/featured', 'RecipesController.getFeatured')
 
 Route.get('/', async () => {
     return { hello: 'world' }
