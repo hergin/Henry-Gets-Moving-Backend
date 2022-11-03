@@ -39,6 +39,27 @@ export default class RecipesController {
         return recipe
     }
 
+    public async update({ params, request }: HttpContextContract) {
+        const recipeSchema = schema.create({
+            name: schema.string({ trim: true }),
+            thumbnail: schema.string({ trim: true }),
+            isFeatured: schema.boolean(),
+            category_id: schema.number(),
+        })
+
+        const requestBody = await request.validate({ schema: recipeSchema })
+        const name = requestBody.name
+
+        const recipe = await Recipe.findOrFail(params.id)
+        recipe.name = name
+        recipe.thumbnail = requestBody.thumbnail
+        recipe.isFeatured = requestBody.isFeatured
+        recipe.category_id = requestBody.category_id
+
+        await recipe.save()
+        return recipe
+    }
+
     public async show({ params }: HttpContextContract) {
         return Recipe.query().where('id', params.id).preload('recipeCategory')[0]
     }
