@@ -22,6 +22,8 @@ export default class FamilyMember extends BaseModel {
     @belongsTo(() => User)
     public user: BelongsTo<typeof User>
 
-    @hasMany(() => ExerciseLog)
+    @hasMany(() => ExerciseLog, {
+        foreignKey: 'family_member_id',
+    })
     public exerciseLog: HasMany<typeof ExerciseLog>
 }

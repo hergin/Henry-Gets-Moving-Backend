@@ -24,6 +24,8 @@ export default class ExerciseLog extends BaseModel {
     @column.dateTime({ autoCreate: true, autoUpdate: true })
     public updatedAt: DateTime
 
-    @belongsTo(() => FamilyMember)
+    @belongsTo(() => FamilyMember, {
+        foreignKey: 'family_member_id',
+    })
     public familyMember: BelongsTo<typeof FamilyMember>
 }
