@@ -15,6 +15,8 @@ export default class ExerciseCategory extends BaseModel {
     @column.dateTime({ autoCreate: true, autoUpdate: true })
     public updatedAt: DateTime
 
-    @hasMany(() => Exercise)
+    @hasMany(() => Exercise, {
+        foreignKey: 'exercise_category_id',
+    })
     public exercise: HasMany<typeof Exercise>
 }

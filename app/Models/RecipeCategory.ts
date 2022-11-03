@@ -15,6 +15,8 @@ export default class RecipeCategory extends BaseModel {
     @column.dateTime({ autoCreate: true, autoUpdate: true })
     public updatedAt: DateTime
 
-    @hasMany(() => Recipe)
+    @hasMany(() => Recipe, {
+        foreignKey: 'recipe_category_id',
+    })
     public recipe: HasMany<typeof Recipe>
 }
