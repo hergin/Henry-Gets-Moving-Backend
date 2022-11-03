@@ -1,12 +1,12 @@
 version: '3.8'
 services:
     mysqldb:
-        platform: linux/amd64
+        platform: linux/x86_64
         image: mysql:5.7
         ports:
             - 3306:3306
         volumes:
-            - .db:/var/lib/mysql
+            - .db:/var/lib/mysqldock
         environment:
             MYSQL_DATABASE: 'henry-gets-moving'
             MYSQL_USER: 'henry-gets-moving'
