@@ -42,9 +42,10 @@ export default class UsersController {
         }
     }
 
-    public async show({ params, auth }: HttpContextContract) {
+    public async show({ params, auth, bouncer }: HttpContextContract) {
         await auth.use('api').authenticate()
         const signedInUser = await User.findOrFail(params.id)
+        await bouncer.authorize('viewFamilyMembers', signedInUser)
         return User.query().where('userID', signedInUser.id).preload('familyMembers')
     }
 

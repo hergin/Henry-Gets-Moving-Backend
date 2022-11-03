@@ -36,7 +36,9 @@ export const { actions } = Bouncer.define(
     (user: User, familyMemberToView: FamilyMember) => {
         return user.id === familyMemberToView.user_id
     }
-)
+).define('viewFamilyMembers', (user: User, userToView: User) => {
+    return user.id === userToView.id
+})
 
 /*
 |--------------------------------------------------------------------------
