@@ -1,5 +1,6 @@
 import Database from '@ioc:Adonis/Lucid/Database'
 import { test } from '@japa/runner'
+import User from 'App/Models/User'
 
 test.group('User store', (group) => {
     group.each.setup( async () => {
@@ -14,5 +15,20 @@ test.group('User', () => {
         const result = await client.post(route('UsersController.store'))
         result.assertStatus(422)
         result.assertBodyContains({errors: [{message:'required validation failed',rule:'required',field:'email'}]})
+    })
+
+    test('user creation works', async ({ assert, client, route }) => {
+        const result = await client.post(route('UsersController.store')).form({
+            email: 'test@bsu.edu',
+        })
+        result.dumpBody()
+    })
+
+    test('non-existent user can\'t log-in', async ({assert, client, route}) => {
+        let non_existent_user = new User()
+        non_existent_user.email = 'test@bsu.edu';
+        non_existent_user.id = 1
+        const result = await client.post(route('UsersController.store')).loginAs(non_existent_user)
+        result.dumpBody()
     })
 })
