@@ -16,7 +16,7 @@ export default class ExerciseCategory extends BaseModel {
     public updatedAt: DateTime
 
     @hasMany(() => Exercise, {
-        foreignKey: 'exercise_category_id',
+        foreignKey: 'category_id',
     })
     public exercise: HasMany<typeof Exercise>
 }

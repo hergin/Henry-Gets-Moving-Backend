@@ -25,7 +25,7 @@ export default class Exercise extends BaseModel {
     public updatedAt: DateTime
 
     @belongsTo(() => ExerciseCategory, {
-        foreignKey: 'exercise_category_id',
+        foreignKey: 'category_id',
     })
     public exerciseCategory: BelongsTo<typeof ExerciseCategory>
 }

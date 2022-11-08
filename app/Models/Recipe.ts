@@ -25,7 +25,7 @@ export default class Recipe extends BaseModel {
     public updatedAt: DateTime
 
     @belongsTo(() => RecipeCategory, {
-        foreignKey: 'recipe_category_id',
+        foreignKey: 'category_id',
     })
     public recipeCategory: BelongsTo<typeof RecipeCategory>
 }

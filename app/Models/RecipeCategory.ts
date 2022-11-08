@@ -16,7 +16,7 @@ export default class RecipeCategory extends BaseModel {
     public updatedAt: DateTime
 
     @hasMany(() => Recipe, {
-        foreignKey: 'recipe_category_id',
+        foreignKey: 'category_id',
     })
     public recipe: HasMany<typeof Recipe>
 }
