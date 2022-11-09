@@ -3,13 +3,8 @@ import Exercise from 'App/Models/Exercise'
 import { schema } from '@ioc:Adonis/Core/Validator'
 
 export default class ExercisesController {
-    public async index({ request }: HttpContextContract) {
-        const page = request.input('page', 1)
-        const limit = 9
-        return Exercise.query()
-            .preload('exerciseCategory')
-            .orderBy('created_at')
-            .paginate(page, limit)
+    public async index({}: HttpContextContract) {
+        return Exercise.query().preload('exerciseCategory').orderBy('created_at')
     }
 
     public async getFeatured({}: HttpContextContract) {
