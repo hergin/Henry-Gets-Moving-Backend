@@ -9,6 +9,9 @@ export default class extends BaseSchema {
 
             table.string('name').notNullable()
             table.string('thumbnail').notNullable()
+            table.string('cook_time')
+            table.string('ingredients')
+            table.string('recipe_steps')
             table.integer('category_id').notNullable().unsigned().references('recipe_categories.id')
             table.boolean('isFeatured').notNullable().defaultTo(false)
 

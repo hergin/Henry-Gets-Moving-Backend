@@ -21,6 +21,9 @@ export default class RecipesController {
         const recipeSchema = schema.create({
             name: schema.string({ trim: true }),
             thumbnail: schema.string({ trim: true }),
+            cook_time: schema.string(),
+            ingredients: schema.string(),
+            recipe_steps: schema.string(),
             isFeatured: schema.boolean(),
             category_id: schema.number(),
         })
@@ -37,6 +40,9 @@ export default class RecipesController {
         recipe.name = name
         recipe.thumbnail = requestBody.thumbnail
         recipe.isFeatured = requestBody.isFeatured
+        recipe.cook_time = requestBody.cook_time
+        recipe.recipe_steps = requestBody.recipe_steps
+        recipe.ingredients = requestBody.ingredients
         recipe.category_id = requestBody.category_id
 
         await recipe.save()
@@ -47,6 +53,9 @@ export default class RecipesController {
         const recipeSchema = schema.create({
             name: schema.string({ trim: true }),
             thumbnail: schema.string({ trim: true }),
+            cook_time: schema.string(),
+            ingredients: schema.string(),
+            recipe_steps: schema.string(),
             isFeatured: schema.boolean(),
             category_id: schema.number(),
         })
@@ -58,6 +67,9 @@ export default class RecipesController {
         recipe.name = name
         recipe.thumbnail = requestBody.thumbnail
         recipe.isFeatured = requestBody.isFeatured
+        recipe.cook_time = requestBody.cook_time
+        recipe.recipe_steps = requestBody.recipe_steps
+        recipe.ingredients = requestBody.ingredients
         recipe.category_id = requestBody.category_id
 
         await recipe.save()

@@ -13,6 +13,15 @@ export default class Recipe extends BaseModel {
     public thumbnail: string
 
     @column()
+    public cook_time: string
+
+    @column()
+    public ingredients: string
+
+    @column()
+    public recipe_steps: string
+
+    @column()
     public isFeatured: boolean
 
     @column()
