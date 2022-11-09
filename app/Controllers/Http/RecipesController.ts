@@ -71,7 +71,8 @@ export default class RecipesController {
     }
 
     public async show({ params }: HttpContextContract) {
-        return Recipe.query().where('id', params.id).preload('recipeCategory')[0]
+        const recipe = await Recipe.query().where('id', params.id).preload('recipeCategory')
+        return recipe[0]
     }
 
     public async destroy({ params }: HttpContextContract) {

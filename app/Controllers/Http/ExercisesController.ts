@@ -41,7 +41,8 @@ export default class ExercisesController {
     }
 
     public async show({ params }: HttpContextContract) {
-        return Exercise.query().where('id', params.id).preload('exerciseCategory')[0]
+        const exercise = await Exercise.query().where('id', params.id).preload('exerciseCategory')
+        return exercise[0]
     }
 
     public async update({ params, request }: HttpContextContract) {
