@@ -1,5 +1,5 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import { schema } from '@ioc:Adonis/Core/Validator'
+import {rules, schema} from "@ioc:Adonis/Core/Validator";
 import Recipe from 'App/Models/Recipe'
 
 export default class RecipesController {
@@ -16,9 +16,9 @@ export default class RecipesController {
         const recipeSchema = schema.create({
             name: schema.string({ trim: true }),
             thumbnail: schema.string({ trim: true }),
-            cook_time: schema.string(),
-            ingredients: schema.string(),
-            recipe_steps: schema.string(),
+            cook_time: schema.string({}, [rules.maxLength(65535)]),
+            ingredients: schema.string({}, [rules.maxLength(65535)]),
+            recipe_steps: schema.string({}, [rules.maxLength(65535)]),
             is_featured: schema.boolean(),
             category_id: schema.number(),
         })
@@ -48,9 +48,9 @@ export default class RecipesController {
         const recipeSchema = schema.create({
             name: schema.string({ trim: true }),
             thumbnail: schema.string({ trim: true }),
-            cook_time: schema.string(),
-            ingredients: schema.string(),
-            recipe_steps: schema.string(),
+            cook_time: schema.string({}, [rules.maxLength(65535)]),
+            ingredients: schema.string({}, [rules.maxLength(65535)]),
+            recipe_steps: schema.string({}, [rules.maxLength(65535)]),
             is_featured: schema.boolean(),
             category_id: schema.number(),
         })
