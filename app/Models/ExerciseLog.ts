@@ -16,7 +16,7 @@ export default class ExerciseLog extends BaseModel {
     public duration: number
 
     @column()
-    public family_member_id: number
+    public family_member_name: string
 
     @column.dateTime({ autoCreate: true })
     public createdAt: DateTime
@@ -25,7 +25,7 @@ export default class ExerciseLog extends BaseModel {
     public updatedAt: DateTime
 
     @belongsTo(() => FamilyMember, {
-        foreignKey: 'family_member_id',
+        foreignKey: 'family_member_name',
     })
     public familyMember: BelongsTo<typeof FamilyMember>
 }
