@@ -4,7 +4,7 @@ import { schema } from '@ioc:Adonis/Core/Validator'
 
 export default class ExercisesController {
     public async index({}: HttpContextContract) {
-        return Exercise.query().orderBy('created_at')
+        return Exercise.query().preload("exerciseCategory").orderBy('created_at')
     }
 
     public async getFeatured({}: HttpContextContract) {
