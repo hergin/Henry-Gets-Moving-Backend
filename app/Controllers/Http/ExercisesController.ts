@@ -14,6 +14,7 @@ export default class ExercisesController {
     public async store({ request, response }: HttpContextContract) {
         const exerciseSchema = schema.create({
             name: schema.string({ trim: true }),
+            thumbnailLink: schema.string({ trim: true }),
             videoLink: schema.string({ trim: true }),
             isFeatured: schema.boolean(),
             category_id: schema.number(),
@@ -30,6 +31,7 @@ export default class ExercisesController {
 
         const exercise = new Exercise()
         exercise.name = name
+        exercise.thumbnailLink = requestBody.thumbnailLink
         exercise.videoLink = requestBody.videoLink
         exercise.isFeatured = requestBody.isFeatured
         exercise.category_id = requestBody.category_id
@@ -45,6 +47,7 @@ export default class ExercisesController {
     public async update({ params, request }: HttpContextContract) {
         const exerciseSchema = schema.create({
             name: schema.string({ trim: true }),
+            thumbnailLink: schema.string({ trim: true }),
             videoLink: schema.string({ trim: true }),
             isFeatured: schema.boolean(),
             category_id: schema.number(),
@@ -56,6 +59,7 @@ export default class ExercisesController {
 
         const exercise = await Exercise.findOrFail(params.id)
         exercise.name = name
+        exercise.thumbnailLink = requestBody.thumbnailLink
         exercise.videoLink = requestBody.videoLink
         exercise.isFeatured = requestBody.isFeatured
         exercise.category_id = requestBody.category_id

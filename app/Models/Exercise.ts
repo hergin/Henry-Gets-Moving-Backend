@@ -10,6 +10,9 @@ export default class Exercise extends BaseModel {
     public name: string
 
     @column()
+    public thumbnailLink: string | null
+
+    @column()
     public videoLink: string | null
 
     @column()

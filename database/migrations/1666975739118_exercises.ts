@@ -7,6 +7,7 @@ export default class extends BaseSchema {
         this.schema.createTable(this.tableName, (table) => {
             table.increments('id')
             table.string('name').notNullable()
+            table.string('thumbnailLink')
             table.string('videoLink')
             table.boolean('isFeatured').notNullable().defaultTo(false)
             table
