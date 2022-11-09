@@ -3,7 +3,7 @@ import { schema } from '@ioc:Adonis/Core/Validator'
 import Recipe from 'App/Models/Recipe'
 
 export default class RecipesController {
-    public async index({ }: HttpContextContract) {
+    public async index({}: HttpContextContract) {
         return Recipe.query().preload('recipeCategory').orderBy('name')
     }
 
