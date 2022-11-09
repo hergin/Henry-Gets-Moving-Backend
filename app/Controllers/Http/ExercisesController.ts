@@ -8,7 +8,8 @@ export default class ExercisesController {
     }
 
     public async getFeatured({}: HttpContextContract) {
-        return Exercise.query().where('isFeatured', true).preload('exerciseCategory')
+        const featured = await Exercise.query().where('isFeatured', true).preload('exerciseCategory')
+        return featured[0]
     }
 
     public async store({ request, response }: HttpContextContract) {
