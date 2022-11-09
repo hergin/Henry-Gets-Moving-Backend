@@ -3,13 +3,7 @@ import { schema } from '@ioc:Adonis/Core/Validator'
 import Recipe from 'App/Models/Recipe'
 
 export default class RecipesController {
-    public async index({ request }: HttpContextContract) {
-        const page = request.input('page', 1)
-        const limit = 9
-        return Recipe.query().preload('recipeCategory').orderBy('created_at').paginate(page, limit)
-    }
-
-    public async getAll({}: HttpContextContract) {
+    public async index({ }: HttpContextContract) {
         return Recipe.query().preload('recipeCategory').orderBy('name')
     }
 
