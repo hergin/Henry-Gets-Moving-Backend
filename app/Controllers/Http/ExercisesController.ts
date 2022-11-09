@@ -4,7 +4,7 @@ import { schema } from '@ioc:Adonis/Core/Validator'
 
 export default class ExercisesController {
     public async index({}: HttpContextContract) {
-        return Exercise.query().preload('exerciseCategory').orderBy('created_at')
+        return Exercise.query().orderBy('created_at')
     }
 
     public async getFeatured({}: HttpContextContract) {
@@ -14,9 +14,9 @@ export default class ExercisesController {
     public async store({ request, response }: HttpContextContract) {
         const exerciseSchema = schema.create({
             name: schema.string({ trim: true }),
-            thumbnailLink: schema.string({ trim: true }),
-            videoLink: schema.string({ trim: true }),
-            isFeatured: schema.boolean(),
+            thumbnail_link: schema.string({ trim: true }),
+            video_link: schema.string({ trim: true }),
+            is_featured: schema.boolean(),
             category_id: schema.number(),
         })
 
@@ -31,9 +31,9 @@ export default class ExercisesController {
 
         const exercise = new Exercise()
         exercise.name = name
-        exercise.thumbnailLink = requestBody.thumbnailLink
-        exercise.videoLink = requestBody.videoLink
-        exercise.isFeatured = requestBody.isFeatured
+        exercise.thumbnail_link = requestBody.thumbnail_link
+        exercise.video_link = requestBody.video_link
+        exercise.is_featured = requestBody.is_featured
         exercise.category_id = requestBody.category_id
 
         await exercise.save()
@@ -47,9 +47,9 @@ export default class ExercisesController {
     public async update({ params, request }: HttpContextContract) {
         const exerciseSchema = schema.create({
             name: schema.string({ trim: true }),
-            thumbnailLink: schema.string({ trim: true }),
-            videoLink: schema.string({ trim: true }),
-            isFeatured: schema.boolean(),
+            thumbnail_link: schema.string({ trim: true }),
+            video_link: schema.string({ trim: true }),
+            is_featured: schema.boolean(),
             category_id: schema.number(),
         })
 
@@ -59,9 +59,9 @@ export default class ExercisesController {
 
         const exercise = await Exercise.findOrFail(params.id)
         exercise.name = name
-        exercise.thumbnailLink = requestBody.thumbnailLink
-        exercise.videoLink = requestBody.videoLink
-        exercise.isFeatured = requestBody.isFeatured
+        exercise.thumbnail_link = requestBody.thumbnail_link
+        exercise.video_link = requestBody.video_link
+        exercise.is_featured = requestBody.is_featured
         exercise.category_id = requestBody.category_id
 
         await exercise.save()

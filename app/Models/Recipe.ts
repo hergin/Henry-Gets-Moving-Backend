@@ -22,7 +22,7 @@ export default class Recipe extends BaseModel {
     public recipe_steps: string
 
     @column()
-    public isFeatured: boolean
+    public is_featured: boolean
 
     @column()
     public category_id: number

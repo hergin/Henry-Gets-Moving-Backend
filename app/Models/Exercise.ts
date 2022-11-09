@@ -10,13 +10,13 @@ export default class Exercise extends BaseModel {
     public name: string
 
     @column()
-    public thumbnailLink: string | null
+    public thumbnail_link: string
 
     @column()
-    public videoLink: string | null
+    public video_link: string
 
     @column()
-    public isFeatured: boolean
+    public is_featured: boolean
 
     @column()
     public category_id: number

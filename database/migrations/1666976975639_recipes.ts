@@ -9,11 +9,11 @@ export default class extends BaseSchema {
 
             table.string('name').notNullable()
             table.string('thumbnail').notNullable()
-            table.string('cook_time')
-            table.string('ingredients')
-            table.string('recipe_steps')
+            table.string('cook_time').notNullable()
+            table.string('ingredients').notNullable()
+            table.string('recipe_steps').notNullable()
             table.integer('category_id').notNullable().unsigned().references('recipe_categories.id')
-            table.boolean('isFeatured').notNullable().defaultTo(false)
+            table.boolean('is_featured').notNullable().defaultTo(false)
 
             table.timestamp('created_at', { useTz: true }).notNullable().defaultTo(this.now())
             table.timestamp('updated_at', { useTz: true }).notNullable().defaultTo(this.now())
