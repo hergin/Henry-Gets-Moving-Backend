@@ -8,7 +8,7 @@ export default class RecipesController {
     }
 
     public async getFeatured({}: HttpContextContract) {
-        const featured = await Recipe.query().where('isFeatured', true).preload('recipeCategory')
+        const featured = await Recipe.query().where('is_featured', true).preload('recipeCategory')
         return featured[0]
     }
 
