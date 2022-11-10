@@ -36,8 +36,8 @@ Route.post('/users/login', (ctx) => {
     return new UsersController().login(ctx)
 })
 
-Route.get('exercise/featured', 'ExercisesController.getFeatured')
-Route.get('recipe/featured', 'RecipesController.getFeatured')
+Route.get('/featuredExercise', 'ExercisesController.getFeatured')
+Route.get('/featuredRecipe', 'RecipesController.getFeatured')
 
 Route.get('/', async () => {
     return { hello: 'world' }
