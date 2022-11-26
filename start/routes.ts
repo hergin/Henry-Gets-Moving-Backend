@@ -38,6 +38,7 @@ Route.post('/users/login', (ctx) => {
 
 Route.get('/featuredExercise', 'ExercisesController.getFeatured')
 Route.get('/featuredRecipe', 'RecipesController.getFeatured')
+Route.get('/paginatedRecipes', 'RecipesController.getPaginated')
 
 Route.get('/', async () => {
     return { hello: 'world' }

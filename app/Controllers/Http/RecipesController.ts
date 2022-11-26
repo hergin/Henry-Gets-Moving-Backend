@@ -1,5 +1,5 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import {rules, schema} from "@ioc:Adonis/Core/Validator";
+import { rules, schema } from '@ioc:Adonis/Core/Validator'
 import Recipe from 'App/Models/Recipe'
 
 export default class RecipesController {
@@ -10,6 +10,15 @@ export default class RecipesController {
     public async getFeatured({}: HttpContextContract) {
         const featured = await Recipe.query().where('is_featured', true).preload('recipeCategory')
         return featured[0]
+    }
+
+    public async getPaginated({ request }: HttpContextContract) {
+        const page = request.input('page', 1)
+        const limit = 9
+        return await Recipe.query()
+            .preload('recipeCategory')
+            .orderBy('created_at')
+            .paginate(page, limit)
     }
 
     public async store({ request, response }: HttpContextContract) {
