@@ -23,4 +23,10 @@ export default class DemonstrationCategoriesController {
 
         return demonstrationCategory
     }
+
+    public async destroy({ params }: HttpContextContract) {
+        let demoCategory = await DemonstrationCategory.findOrFail(params.id)
+        await demoCategory.delete()
+        return demoCategory
+    }
 }
