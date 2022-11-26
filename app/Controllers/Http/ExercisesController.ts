@@ -16,7 +16,7 @@ export default class ExercisesController {
 
     public async getPaginated({ request }: HttpContextContract) {
         const page = request.input('page', 1)
-        const limit = 9
+        const limit = 8
         return await Exercise.query()
             .preload('exerciseCategory')
             .orderBy('created_at')

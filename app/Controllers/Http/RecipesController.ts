@@ -14,7 +14,7 @@ export default class RecipesController {
 
     public async getPaginated({ request }: HttpContextContract) {
         const page = request.input('page', 1)
-        const limit = 9
+        const limit = 8
         return await Recipe.query()
             .preload('recipeCategory')
             .orderBy('created_at')
