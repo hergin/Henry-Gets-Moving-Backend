@@ -26,7 +26,9 @@ export default class User extends BaseModel {
     @column.dateTime({ autoCreate: true, autoUpdate: true })
     public updatedAt: DateTime
 
-    @hasMany(() => FamilyMember)
+    @hasMany(() => FamilyMember, {
+        foreignKey: 'user_id',
+    })
     public familyMembers: HasMany<typeof FamilyMember>
 
     @hasManyThrough([() => ExerciseLog, () => FamilyMember])
