@@ -27,4 +27,10 @@ export default class DemonstrationsController {
 
         return demo
     }
+
+    public async show({ params }: HttpContextContract) {
+        const demo = await Demonstration.findOrFail(params.id)
+        await demo.load('demonstrationCategory')
+        return demo
+    }
 }
