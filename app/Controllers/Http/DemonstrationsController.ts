@@ -33,4 +33,25 @@ export default class DemonstrationsController {
         await demo.load('demonstrationCategory')
         return demo
     }
+
+    public async update({ request, params }: HttpContextContract) {
+        const demonstrationSchema = schema.create({
+            name: schema.string(),
+            thumbnailLink: schema.string({ trim: true }),
+            videoLink: schema.string({ trim: true }),
+            demonstration_category_id: schema.number(),
+        })
+
+        const demoPayload = await request.validate({ schema: demonstrationSchema })
+        const demo = await Demonstration.findOrFail(params.id)
+
+        demo.name = demoPayload.name ?? demo.name
+        demo.thumbnailLink = demoPayload.thumbnailLink ?? demo.thumbnailLink
+        demo.videoLink = demoPayload.videoLink ?? demo.videoLink
+        demo.demonstration_category_id =
+            demoPayload.demonstration_category_id ?? demo.demonstration_category_id
+
+        await demo.save()
+        return demo
+    }
 }
