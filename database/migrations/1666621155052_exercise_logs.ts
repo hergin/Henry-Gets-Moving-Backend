@@ -9,11 +9,13 @@ export default class extends BaseSchema {
             table.string('type').notNullable()
             table.enum('intensity', ['Light', 'Moderate', 'Vigorous']).notNullable()
             table.integer('duration').notNullable()
+            table.string('name')
             table
                 .integer('family_member_id')
                 .notNullable()
                 .unsigned()
                 .references('family_members.id')
+            table.integer('user_id').notNullable().unsigned().references('users.id')
 
             /**
              * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
