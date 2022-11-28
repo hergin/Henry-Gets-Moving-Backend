@@ -3,6 +3,10 @@ import { schema } from '@ioc:Adonis/Core/Validator'
 import Demonstration from 'App/Models/Demonstration'
 
 export default class DemonstrationsController {
+    public async index({}: HttpContextContract) {
+        return Demonstration.query().preload('demonstrationCategory').orderBy('name')
+    }
+
     public async store({ request }: HttpContextContract) {
         const demonstrationSchema = schema.create({
             name: schema.string(),
