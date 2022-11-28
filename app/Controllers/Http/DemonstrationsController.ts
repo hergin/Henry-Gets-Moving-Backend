@@ -54,4 +54,10 @@ export default class DemonstrationsController {
         await demo.save()
         return demo
     }
+
+    public async destroy({ params }: HttpContextContract) {
+        let demo = await Demonstration.findOrFail(params.id)
+        await demo.delete()
+        return demo
+    }
 }
