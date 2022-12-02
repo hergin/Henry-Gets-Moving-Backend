@@ -35,6 +35,7 @@ Route.resource('recipeCategories', 'RecipeCategoriesController').apiOnly()
 Route.resource('recipes', 'RecipesController').apiOnly()
 Route.resource('demos', 'DemonstrationsController').apiOnly()
 Route.resource('demoCategories', 'DemonstrationCategoriesController').apiOnly()
+Route.resource('diagrams', 'DiagramsController')
 
 Route.post('/users/login', (ctx) => {
     return new UsersController().login(ctx)
