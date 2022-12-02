@@ -4,14 +4,14 @@ import Demonstration from 'App/Models/Demonstration'
 
 export default class DemonstrationsController {
     public async index({}: HttpContextContract) {
-        return Demonstration.query().preload('demonstrationCategory').orderBy('name')
+        return Demonstration.query().orderBy('name').preload('demonstrationCategory')
     }
 
     public async store({ request }: HttpContextContract) {
         const demonstrationSchema = schema.create({
             name: schema.string(),
-            thumbnailLink: schema.string({ trim: true }),
-            videoLink: schema.string({ trim: true }),
+            thumbnail_link: schema.string({ trim: true }),
+            video_link: schema.string({ trim: true }),
             demonstration_category_id: schema.number(),
         })
 
@@ -19,8 +19,8 @@ export default class DemonstrationsController {
 
         const demo = new Demonstration()
         demo.name = demoPayload.name
-        demo.thumbnailLink = demoPayload.thumbnailLink
-        demo.videoLink = demoPayload.videoLink
+        demo.thumbnail_link = demoPayload.thumbnail_link
+        demo.video_link = demoPayload.video_link
         demo.demonstration_category_id = demoPayload.demonstration_category_id
 
         await demo.save()
@@ -37,8 +37,8 @@ export default class DemonstrationsController {
     public async update({ request, params }: HttpContextContract) {
         const demonstrationSchema = schema.create({
             name: schema.string(),
-            thumbnailLink: schema.string({ trim: true }),
-            videoLink: schema.string({ trim: true }),
+            thumbnail_link: schema.string({ trim: true }),
+            video_link: schema.string({ trim: true }),
             demonstration_category_id: schema.number(),
         })
 
@@ -46,8 +46,8 @@ export default class DemonstrationsController {
         const demo = await Demonstration.findOrFail(params.id)
 
         demo.name = demoPayload.name ?? demo.name
-        demo.thumbnailLink = demoPayload.thumbnailLink ?? demo.thumbnailLink
-        demo.videoLink = demoPayload.videoLink ?? demo.videoLink
+        demo.thumbnail_link = demoPayload.thumbnail_link ?? demo.thumbnail_link
+        demo.video_link = demoPayload.video_link ?? demo.video_link
         demo.demonstration_category_id =
             demoPayload.demonstration_category_id ?? demo.demonstration_category_id
 

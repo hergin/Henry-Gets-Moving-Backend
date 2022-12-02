@@ -7,8 +7,8 @@ export default class extends BaseSchema {
         this.schema.createTable(this.tableName, (table) => {
             table.increments('id')
             table.string('name')
-            table.string('thumbnailLink')
-            table.string('videoLink')
+            table.string('thumbnail_link')
+            table.string('video_link')
             table
                 .integer('demonstration_category_id')
                 .unsigned()

@@ -10,10 +10,10 @@ export default class Demonstration extends BaseModel {
     public name: string
 
     @column()
-    public thumbnailLink: string
+    public thumbnail_link: string
 
     @column()
-    public videoLink: string
+    public video_link: string
 
     @column()
     public demonstration_category_id: number
