@@ -36,4 +36,8 @@ export default class DiagramsController {
 
         return diagram
     }
+
+    public async show({ params }: HttpContextContract) {
+        return Diagram.findOrFail(params.id)
+    }
 }
