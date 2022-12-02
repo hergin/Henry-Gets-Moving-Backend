@@ -15,6 +15,8 @@ export default class DemonstrationCategory extends BaseModel {
     @column.dateTime({ autoCreate: true, autoUpdate: true })
     public updatedAt: DateTime
 
-    @hasMany(() => Demonstration)
+    @hasMany(() => Demonstration, {
+        foreignKey: 'demonstration_category_id',
+    })
     public demonstration: HasMany<typeof Demonstration>
 }

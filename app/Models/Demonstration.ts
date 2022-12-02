@@ -24,6 +24,8 @@ export default class Demonstration extends BaseModel {
     @column.dateTime({ autoCreate: true, autoUpdate: true })
     public updatedAt: DateTime
 
-    @belongsTo(() => DemonstrationCategory)
+    @belongsTo(() => DemonstrationCategory, {
+        foreignKey: 'demonstration_category_id',
+    })
     public demonstrationCategory: BelongsTo<typeof DemonstrationCategory>
 }
