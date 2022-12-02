@@ -21,4 +21,19 @@ export default class DiagramsController {
 
         return diagram
     }
+
+    public async update({ request, params }: HttpContextContract) {
+        const diagramSchema = schema.create({
+            thumbnail_link: schema.string({ trim: true }),
+        })
+
+        const diagramPayload = await request.validate({ schema: diagramSchema })
+        const diagram = await Diagram.findOrFail(params.id)
+
+        diagram.thumbnail_link = diagramPayload.thumbnail_link
+
+        await diagram.save()
+
+        return diagram
+    }
 }
