@@ -40,4 +40,10 @@ export default class DiagramsController {
     public async show({ params }: HttpContextContract) {
         return Diagram.findOrFail(params.id)
     }
+
+    public async destroy({ params }: HttpContextContract) {
+        const diagram = await Diagram.findOrFail(params.id)
+        await diagram.delete()
+        return diagram
+    }
 }
