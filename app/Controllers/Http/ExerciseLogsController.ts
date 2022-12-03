@@ -20,10 +20,12 @@ export default class ExerciseLogsController {
         exerciseLog.intensity = exerciseLogPayload.intensity
         exerciseLog.duration = exerciseLogPayload.duration
         exerciseLog.name = exerciseLogPayload.name
-        await exerciseLog
-            .related('familyMember')
-            .associate(await FamilyMember.firstOrCreate({ name: exerciseLogPayload.name }))
+        await auth.use('api').authenticate()
         await exerciseLog.related('user').associate(auth.user!)
+        const familyMember = await FamilyMember.query()
+            .where('user_id', '=', `${auth.user?.id}`)
+            .where('name', '=', `${exerciseLogPayload.name}`)[0]
+        await exerciseLog.related('familyMember').associate(familyMember)
 
         await exerciseLog.save()
         return exerciseLog

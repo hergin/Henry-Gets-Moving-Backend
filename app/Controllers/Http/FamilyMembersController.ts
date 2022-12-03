@@ -12,7 +12,8 @@ export default class FamilyMembersController {
         const familyMemberPayload = await request.validate({ schema: familyMemberSchema })
         const familyMember = new FamilyMember()
         familyMember.name = familyMemberPayload.name
-        await familyMember.related('user').associate(auth.user!)
+        await auth.use('api').authenticate()
+        await familyMember.related('user').associate(auth.use('api').user!)
 
         await familyMember.save()
 
