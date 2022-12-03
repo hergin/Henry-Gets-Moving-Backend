@@ -40,6 +40,7 @@ Route.resource('diagrams', 'DiagramsController')
 Route.post('/users/login', (ctx) => {
     return new UsersController().login(ctx)
 })
+Route.post('/checkFamilyMember', 'FamilyMembersController.checkFamilyMember')
 
 Route.get('/featuredExercise', 'ExercisesController.getFeatured')
 Route.get('/featuredRecipe', 'RecipesController.getFeatured')
