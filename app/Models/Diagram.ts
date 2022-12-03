@@ -6,6 +6,9 @@ export default class Diagram extends BaseModel {
     public id: number
 
     @column()
+    public name: string
+
+    @column()
     public thumbnail_link: string
 
     @column.dateTime({ autoCreate: true })

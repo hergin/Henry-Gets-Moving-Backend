@@ -9,12 +9,14 @@ export default class DiagramsController {
 
     public async store({ request }: HttpContextContract) {
         const diagramSchema = schema.create({
+            name: schema.string(),
             thumbnail_link: schema.string({ trim: true }),
         })
 
         const diagramPayload = await request.validate({ schema: diagramSchema })
         const diagram = new Diagram()
 
+        diagram.name = diagramPayload.name
         diagram.thumbnail_link = diagramPayload.thumbnail_link
 
         await diagram.save()
@@ -24,13 +26,15 @@ export default class DiagramsController {
 
     public async update({ request, params }: HttpContextContract) {
         const diagramSchema = schema.create({
+            name: schema.string(),
             thumbnail_link: schema.string({ trim: true }),
         })
 
         const diagramPayload = await request.validate({ schema: diagramSchema })
         const diagram = await Diagram.findOrFail(params.id)
 
-        diagram.thumbnail_link = diagramPayload.thumbnail_link
+        diagram.name = diagramPayload.name ?? diagram.name
+        diagram.thumbnail_link = diagramPayload.thumbnail_link ?? diagram.thumbnail_link
 
         await diagram.save()
 
