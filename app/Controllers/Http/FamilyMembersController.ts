@@ -14,6 +14,7 @@ export default class FamilyMembersController {
         const familyMember = new FamilyMember()
         familyMember.name = familyMemberPayload.name
         familyMember.user_id = familyMemberPayload.user_id
+        await familyMember.load('user')
 
         await familyMember.save()
 
