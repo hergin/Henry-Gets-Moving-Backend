@@ -5,6 +5,14 @@ import { schema } from '@ioc:Adonis/Core/Validator'
 import FamilyMember from 'App/Models/FamilyMember'
 
 export default class FamilyMembersController {
+    public async index({ auth }: HttpContextContract) {
+        await auth.use('api').authenticate()
+        const familyMembers = await FamilyMember.query()
+            .where('user_id', '=', auth.use('api').user?.id!)
+            .preload('exerciseLog')
+        return familyMembers
+    }
+
     public async store({ request }: HttpContextContract) {
         const familyMemberSchema = schema.create({
             name: schema.string(),
