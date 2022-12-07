@@ -30,6 +30,7 @@ export default class RecipesController {
             recipe_steps: schema.string({}, [rules.maxLength(65535)]),
             is_featured: schema.boolean(),
             category_id: schema.number(),
+            prep_time: schema.string(),
         })
 
         const requestBody = await request.validate({ schema: recipeSchema })
@@ -48,6 +49,7 @@ export default class RecipesController {
         recipe.recipe_steps = requestBody.recipe_steps
         recipe.ingredients = requestBody.ingredients
         recipe.category_id = requestBody.category_id
+        recipe.prep_time = requestBody.prep_time
 
         await recipe.save()
         return recipe
@@ -62,6 +64,7 @@ export default class RecipesController {
             recipe_steps: schema.string({}, [rules.maxLength(65535)]),
             is_featured: schema.boolean(),
             category_id: schema.number(),
+            prep_time: schema.string(),
         })
 
         const requestBody = await request.validate({ schema: recipeSchema })
@@ -75,6 +78,7 @@ export default class RecipesController {
         recipe.recipe_steps = requestBody.recipe_steps
         recipe.ingredients = requestBody.ingredients
         recipe.category_id = requestBody.category_id
+        recipe.prep_time = requestBody.prep_time
 
         await recipe.save()
         return recipe

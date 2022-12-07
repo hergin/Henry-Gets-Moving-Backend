@@ -25,6 +25,9 @@ export default class Recipe extends BaseModel {
     public is_featured: boolean
 
     @column()
+    public prep_time: string
+
+    @column()
     public category_id: number
 
     @column.dateTime({ autoCreate: true })
