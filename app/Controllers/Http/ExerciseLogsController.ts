@@ -1,6 +1,7 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { schema } from '@ioc:Adonis/Core/Validator'
 import ExerciseLog from 'App/Models/ExerciseLog'
+import FamilyMember from 'App/Models/FamilyMember'
 
 export default class ExerciseLogsController {
     public async store({ request, auth }: HttpContextContract) {
@@ -26,5 +27,11 @@ export default class ExerciseLogsController {
 
         await exerciseLog.save()
         return exerciseLog
+    }
+
+    public async show({ params, auth }: HttpContextContract) {
+        await auth.use('api').authenticate()
+        const familyMember = await FamilyMember.findOrFail(params.id)
+        return ExerciseLog.query().where('family_member_id', '=', familyMember.id)
     }
 }
