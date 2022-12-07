@@ -16,7 +16,7 @@ export default class extends BaseSchema {
                 .unsigned()
                 .references('family_members.id')
             table.integer('user_id').notNullable().unsigned().references('users.id')
-            table.date("date")
+            table.string('date')
 
             /**
              * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
