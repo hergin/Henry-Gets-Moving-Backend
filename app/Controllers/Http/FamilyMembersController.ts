@@ -32,7 +32,6 @@ export default class FamilyMembersController {
     public async show({ params, auth, bouncer }: HttpContextContract) {
         await auth.use('api').authenticate()
         const familyMember = await FamilyMember.findOrFail(params.id)
-        await familyMember.load('exerciseLog')
         await familyMember.load('user')
         await bouncer.authorize('viewFamilyMember', familyMember)
         return familyMember
