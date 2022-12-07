@@ -3,8 +3,13 @@ import { schema } from '@ioc:Adonis/Core/Validator'
 import Demonstration from 'App/Models/Demonstration'
 
 export default class DemonstrationsController {
-    public async index({}: HttpContextContract) {
-        return Demonstration.query().orderBy('name').preload('demonstrationCategory')
+    public async index({ request }: HttpContextContract) {
+        const page = request.input('page', 1)
+        const limit = 8
+        return Demonstration.query()
+            .orderBy('name')
+            .preload('demonstrationCategory')
+            .paginate(page, limit)
     }
 
     public async store({ request }: HttpContextContract) {
