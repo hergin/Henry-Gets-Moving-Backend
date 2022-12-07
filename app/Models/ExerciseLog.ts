@@ -25,6 +25,9 @@ export default class ExerciseLog extends BaseModel {
     @column()
     public user_id: number
 
+    @column()
+    public date: string
+
     @column.dateTime({ autoCreate: true })
     public createdAt: DateTime
 

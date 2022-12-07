@@ -11,6 +11,7 @@ export default class ExerciseLogsController {
             duration: schema.number(),
             name: schema.string(),
             family_member_id: schema.number(),
+            date: schema.string(),
         })
 
         const exerciseLogPayload = await request.validate({ schema: exerciseLogSchema })
@@ -22,6 +23,7 @@ export default class ExerciseLogsController {
         exerciseLog.duration = exerciseLogPayload.duration
         exerciseLog.name = exerciseLogPayload.name
         exerciseLog.family_member_id = exerciseLogPayload.family_member_id
+        exerciseLog.date = exerciseLogPayload.date
         await auth.use('api').authenticate()
         await exerciseLog.related('user').associate(auth.user!)
 
