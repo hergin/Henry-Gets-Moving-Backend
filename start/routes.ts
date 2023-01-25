@@ -42,8 +42,8 @@ Route.post('/users/login', (ctx) => {
 })
 Route.post('/checkFamilyMember', 'FamilyMembersController.checkFamilyMember')
 
-Route.get('/featuredExercise', 'ExercisesController.getFeatured')
-Route.get('/featuredRecipe', 'RecipesController.getFeatured')
+Route.get('/featuredExercise', 'FeaturedController.getFeaturedExercise')
+Route.get('/featuredRecipe', 'FeaturedController.getFeaturedRecipe')
 Route.get('/paginatedRecipes', 'RecipesController.getPaginated')
 Route.get('/paginatedExercises', 'ExercisesController.getPaginated')
 Route.get('/paginatedDemos', 'DemonstrationsController.getPaginated')
