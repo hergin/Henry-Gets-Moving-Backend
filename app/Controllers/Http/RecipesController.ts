@@ -7,11 +7,6 @@ export default class RecipesController {
         return Recipe.query().preload('recipeCategory').orderBy('name')
     }
 
-    public async getFeatured({}: HttpContextContract) {
-        const featured = await Recipe.query().where('is_featured', true).preload('recipeCategory')
-        return featured[0]
-    }
-
     public async getPaginated({ request }: HttpContextContract) {
         const page = request.input('page', 1)
         const limit = 8
