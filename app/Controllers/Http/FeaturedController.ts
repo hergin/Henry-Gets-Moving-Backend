@@ -16,28 +16,29 @@ export default class FeaturedController {
     }
 
     public async updateFeaturedExercise({ params }: HttpContextContract) {
-        const oldFeatured = await Exercise.query()
-            .where('is_featured', true)
-            .preload('exerciseCategory')[0]
+        const featuredArray = await Exercise.query().where('is_featured', true)
+        const oldFeatured = featuredArray[0]
         const newFeatured = await Exercise.findOrFail(params.id)
-        if (newFeatured === oldFeatured) {
-            return oldFeatured
-        } else {
-            oldFeatured.is_featured = false
-            newFeatured.is_featured = true
-            return newFeatured
-        }
+        return this.swapFeatured(newFeatured, oldFeatured)
     }
     public async updateFeaturedRecipe({ params }: HttpContextContract) {
-        const oldFeatured = await Recipe.query()
+        const featuredArray = await Recipe.query()
             .where('is_featured', true)
-            .preload('recipeCategory')[0]
+            .preload('recipeCategory')
+        const oldFeatured = featuredArray[0]
         const newFeatured = await Recipe.findOrFail(params.id)
-        if (newFeatured === oldFeatured) {
-            return oldFeatured
+        return this.swapFeatured(newFeatured, oldFeatured)
+    }
+    private async swapFeatured(newFeatured, oldFeatured) {
+        if (newFeatured === oldFeatured || !oldFeatured) {
+            newFeatured.is_featured = true
+            await newFeatured.save()
+            return newFeatured
         } else {
             oldFeatured.is_featured = false
+            await oldFeatured.save()
             newFeatured.is_featured = true
+            await newFeatured.save()
             return newFeatured
         }
     }
