@@ -12,6 +12,8 @@
 |
 */
 
+import { apiClient } from '@japa/preset-adonis'
+
 process.env.NODE_ENV = 'testing'
 
 import 'reflect-metadata'
@@ -43,3 +45,11 @@ kernel
 
         run()
     })
+
+configure({
+    ...processCliArgs(process.argv.slice(2)),
+    ...{
+        files: ['/tests/functional/**.spec.ts'],
+        plugins: [apiClient('http://127.0.0.1:3333')],
+    },
+})
