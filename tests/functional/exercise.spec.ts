@@ -15,7 +15,7 @@ test.group('Exercise', (group) => {
         })
     })
 
-    test("create exercise", async ({client, route}) => {
+    test("create and show exercise", async ({client, route}) => {
         const exerciseToCreate = {
             name: "Test Exercise",
             thumbnail_link: "test.com",
@@ -28,5 +28,4 @@ test.group('Exercise', (group) => {
         const result = await client.get(route('ExercisesController.show', {id: postResult.body().id}))
         result.assertBodyContains(exerciseToCreate)
     })
-
 })
