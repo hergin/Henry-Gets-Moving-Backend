@@ -3,6 +3,16 @@ import Exercise from 'App/Models/Exercise'
 import { schema } from '@ioc:Adonis/Core/Validator'
 
 export default class ExercisesController {
+    private getExerciseSchema(){
+        return schema.create({
+            name: schema.string({ trim: true }),
+            thumbnail_link: schema.string({ trim: true }),
+            video_link: schema.string({ trim: true }),
+            is_featured: schema.boolean(),
+            category_id: schema.number(),
+        })
+    }
+
     public async index({}: HttpContextContract) {
         return Exercise.query().preload('exerciseCategory').orderBy('created_at')
     }
@@ -17,13 +27,7 @@ export default class ExercisesController {
     }
 
     public async store({ request, response }: HttpContextContract) {
-        const exerciseSchema = schema.create({
-            name: schema.string({ trim: true }),
-            thumbnail_link: schema.string({ trim: true }),
-            video_link: schema.string({ trim: true }),
-            is_featured: schema.boolean(),
-            category_id: schema.number(),
-        })
+        const exerciseSchema = this.getExerciseSchema()
 
         const requestBody = await request.validate({ schema: exerciseSchema })
 
@@ -51,13 +55,7 @@ export default class ExercisesController {
     }
 
     public async update({ params, request }: HttpContextContract) {
-        const exerciseSchema = schema.create({
-            name: schema.string({ trim: true }),
-            thumbnail_link: schema.string({ trim: true }),
-            video_link: schema.string({ trim: true }),
-            is_featured: schema.boolean(),
-            category_id: schema.number(),
-        })
+        const exerciseSchema = this.getExerciseSchema()
 
         const requestBody = await request.validate({ schema: exerciseSchema })
 

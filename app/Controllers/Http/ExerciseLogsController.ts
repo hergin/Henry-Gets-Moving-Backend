@@ -4,13 +4,8 @@ import ExerciseLog from 'App/Models/ExerciseLog'
 import FamilyMember from 'App/Models/FamilyMember'
 
 export default class ExerciseLogsController {
-    public async index({ auth }: HttpContextContract) {
-        await auth.use('api').authenticate()
-        return ExerciseLog.query().where('user_id', '=', auth.user!.id)
-    }
-
-    public async store({ request, auth }: HttpContextContract) {
-        const exerciseLogSchema = schema.create({
+    private getExerciseLogSchema() {
+        return schema.create({
             type: schema.string(),
             intensity: schema.string(),
             duration: schema.number(),
@@ -18,6 +13,15 @@ export default class ExerciseLogsController {
             family_member_id: schema.number(),
             date: schema.string(),
         })
+    }
+
+    public async index({ auth }: HttpContextContract) {
+        await auth.use('api').authenticate()
+        return ExerciseLog.query().where('user_id', '=', auth.user!.id)
+    }
+
+    public async store({ request, auth }: HttpContextContract) {
+        const exerciseLogSchema = this.getExerciseLogSchema()
 
         const exerciseLogPayload = await request.validate({ schema: exerciseLogSchema })
 

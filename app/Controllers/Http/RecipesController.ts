@@ -3,6 +3,20 @@ import { rules, schema } from '@ioc:Adonis/Core/Validator'
 import Recipe from 'App/Models/Recipe'
 
 export default class RecipesController {
+
+    private getRecipeSchema(){
+        return schema.create({
+            name: schema.string({ trim: true }),
+            thumbnail: schema.string({ trim: true }),
+            cook_time: schema.string({}, [rules.maxLength(65535)]),
+            ingredients: schema.string({}, [rules.maxLength(65535)]),
+            recipe_steps: schema.string({}, [rules.maxLength(65535)]),
+            is_featured: schema.boolean(),
+            category_id: schema.number(),
+            prep_time: schema.string(),
+        })
+    }
+
     public async index({}: HttpContextContract) {
         return Recipe.query().preload('recipeCategory').orderBy('name')
     }
@@ -17,16 +31,7 @@ export default class RecipesController {
     }
 
     public async store({ request, response }: HttpContextContract) {
-        const recipeSchema = schema.create({
-            name: schema.string({ trim: true }),
-            thumbnail: schema.string({ trim: true }),
-            cook_time: schema.string({}, [rules.maxLength(65535)]),
-            ingredients: schema.string({}, [rules.maxLength(65535)]),
-            recipe_steps: schema.string({}, [rules.maxLength(65535)]),
-            is_featured: schema.boolean(),
-            category_id: schema.number(),
-            prep_time: schema.string(),
-        })
+        const recipeSchema = this.getRecipeSchema()
 
         const requestBody = await request.validate({ schema: recipeSchema })
         const name = requestBody.name
@@ -51,16 +56,7 @@ export default class RecipesController {
     }
 
     public async update({ params, request }: HttpContextContract) {
-        const recipeSchema = schema.create({
-            name: schema.string({ trim: true }),
-            thumbnail: schema.string({ trim: true }),
-            cook_time: schema.string({}, [rules.maxLength(65535)]),
-            ingredients: schema.string({}, [rules.maxLength(65535)]),
-            recipe_steps: schema.string({}, [rules.maxLength(65535)]),
-            is_featured: schema.boolean(),
-            category_id: schema.number(),
-            prep_time: schema.string(),
-        })
+        const recipeSchema = this.getRecipeSchema()
 
         const requestBody = await request.validate({ schema: recipeSchema })
         const name = requestBody.name

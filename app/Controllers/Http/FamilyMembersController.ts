@@ -5,6 +5,13 @@ import { schema } from '@ioc:Adonis/Core/Validator'
 import FamilyMember from 'App/Models/FamilyMember'
 
 export default class FamilyMembersController {
+    private getFamilyMemberSchema() {
+        return schema.create({
+            name: schema.string(),
+            user_id: schema.number(),
+        })
+    }
+
     public async index({ auth }: HttpContextContract) {
         await auth.use('api').authenticate()
         const familyMembers = await FamilyMember.query()
@@ -14,10 +21,7 @@ export default class FamilyMembersController {
     }
 
     public async store({ request }: HttpContextContract) {
-        const familyMemberSchema = schema.create({
-            name: schema.string(),
-            user_id: schema.number(),
-        })
+        const familyMemberSchema = this.getFamilyMemberSchema()
         const familyMemberPayload = await request.validate({ schema: familyMemberSchema })
         const familyMember = new FamilyMember()
         familyMember.name = familyMemberPayload.name
@@ -38,9 +42,7 @@ export default class FamilyMembersController {
     }
 
     public async checkFamilyMember({ request, auth }: HttpContextContract) {
-        const familyMemberSchema = schema.create({
-            name: schema.string(),
-        })
+        const familyMemberSchema = this.getFamilyMemberSchema()
         const familyMemberPayload = await request.validate({ schema: familyMemberSchema })
         await auth.use('api').authenticate()
         return await FamilyMember.firstOrCreate({

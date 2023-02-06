@@ -3,15 +3,20 @@ import Diagram from 'App/Models/Diagram'
 import { schema } from '@ioc:Adonis/Core/Validator'
 
 export default class DiagramsController {
+    private getDiagramsSchema(){
+        return schema.create({
+            name: schema.string(),
+            thumbnail_link: schema.string({ trim: true }),
+        })
+    }
+
+
     public async index({}: HttpContextContract) {
         return Diagram.query().orderBy('updated_at')
     }
 
     public async store({ request }: HttpContextContract) {
-        const diagramSchema = schema.create({
-            name: schema.string(),
-            thumbnail_link: schema.string({ trim: true }),
-        })
+        const diagramSchema = this.getDiagramsSchema()
 
         const diagramPayload = await request.validate({ schema: diagramSchema })
         const diagram = new Diagram()
@@ -25,10 +30,7 @@ export default class DiagramsController {
     }
 
     public async update({ request, params }: HttpContextContract) {
-        const diagramSchema = schema.create({
-            name: schema.string(),
-            thumbnail_link: schema.string({ trim: true }),
-        })
+        const diagramSchema = this.getDiagramsSchema()
 
         const diagramPayload = await request.validate({ schema: diagramSchema })
         const diagram = await Diagram.findOrFail(params.id)

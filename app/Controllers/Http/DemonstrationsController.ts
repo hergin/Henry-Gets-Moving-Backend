@@ -3,6 +3,14 @@ import { schema } from '@ioc:Adonis/Core/Validator'
 import Demonstration from 'App/Models/Demonstration'
 
 export default class DemonstrationsController {
+    private getDemonstrationSchema() {
+        return schema.create({
+            name: schema.string(),
+            thumbnail_link: schema.string({ trim: true }),
+            video_link: schema.string({ trim: true }),
+            demonstration_category_id: schema.number(),
+        })
+    }
     public async index({}: HttpContextContract) {
         return Demonstration.query().orderBy('name').preload('demonstrationCategory')
     }
@@ -16,12 +24,7 @@ export default class DemonstrationsController {
     }
 
     public async store({ request }: HttpContextContract) {
-        const demonstrationSchema = schema.create({
-            name: schema.string(),
-            thumbnail_link: schema.string({ trim: true }),
-            video_link: schema.string({ trim: true }),
-            demonstration_category_id: schema.number(),
-        })
+        const demonstrationSchema = this.getDemonstrationSchema()
 
         const demoPayload = await request.validate({ schema: demonstrationSchema })
 
@@ -43,12 +46,7 @@ export default class DemonstrationsController {
     }
 
     public async update({ request, params }: HttpContextContract) {
-        const demonstrationSchema = schema.create({
-            name: schema.string(),
-            thumbnail_link: schema.string({ trim: true }),
-            video_link: schema.string({ trim: true }),
-            demonstration_category_id: schema.number(),
-        })
+        const demonstrationSchema = this.getDemonstrationSchema()
 
         const demoPayload = await request.validate({ schema: demonstrationSchema })
         const demo = await Demonstration.findOrFail(params.id)

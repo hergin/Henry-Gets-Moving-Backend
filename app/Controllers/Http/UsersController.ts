@@ -3,12 +3,17 @@ import User from 'App/Models/User'
 import { schema } from '@ioc:Adonis/Core/Validator'
 
 export default class UsersController {
+
+    private getUserSchema(){
+        return schema.create({
+            email: schema.string({ trim: true }),
+        })
+    }
+
     public async index({}: HttpContextContract) {}
 
     public async store({ request, response }: HttpContextContract) {
-        const userSchema = schema.create({
-            email: schema.string({ trim: true }),
-        })
+        const userSchema = this.getUserSchema()
         const requestBody = await request.validate({ schema: userSchema })
 
         const email = requestBody.email
@@ -28,9 +33,7 @@ export default class UsersController {
     }
 
     public async login({ request, auth, response }: HttpContextContract) {
-        const loginSchema = schema.create({
-            email: schema.string({ trim: true }),
-        })
+        const loginSchema = this.getUserSchema()
 
         const userPayload = await request.validate({ schema: loginSchema })
         const user = await User.findBy('email', userPayload.email)
