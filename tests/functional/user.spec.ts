@@ -18,10 +18,10 @@ test.group('User', (group) => {
         result.assertBodyContains({errors: [{message:'required validation failed',rule:'required',field:'email'}]})
     })
 
-    test('user creation works', async ({ assert, client, route }) => {
+    test('create user that already exists', async ({ assert, client, route }) => {
         const result = await client.post(route('UsersController.store')).form({
             email: 'test@bsu.edu',
         })
-        result.dumpBody()
+        result.assertTextIncludes("User already exists")
     })
 })
