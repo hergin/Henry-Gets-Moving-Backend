@@ -3,8 +3,7 @@ import { rules, schema } from '@ioc:Adonis/Core/Validator'
 import Recipe from 'App/Models/Recipe'
 
 export default class RecipesController {
-
-    private getRecipeSchema(){
+    private getRecipeSchema() {
         return schema.create({
             name: schema.string({ trim: true }),
             thumbnail: schema.string({ trim: true }),
@@ -15,6 +14,20 @@ export default class RecipesController {
             category_id: schema.number(),
             prep_time: schema.string(),
         })
+    }
+
+    private async saveRecipe(recipe, payload) {
+        recipe.name = payload.name
+        recipe.thumbnail = payload.thumbnail
+        recipe.is_featured = payload.is_featured
+        recipe.cook_time = payload.cook_time
+        recipe.recipe_steps = payload.recipe_steps
+        recipe.ingredients = payload.ingredients
+        recipe.category_id = payload.category_id
+        recipe.prep_time = payload.prep_time
+
+        await recipe.save()
+        return recipe
     }
 
     public async index({}: HttpContextContract) {
@@ -42,37 +55,16 @@ export default class RecipesController {
         }
 
         const recipe = new Recipe()
-        recipe.name = name
-        recipe.thumbnail = requestBody.thumbnail
-        recipe.is_featured = requestBody.is_featured
-        recipe.cook_time = requestBody.cook_time
-        recipe.recipe_steps = requestBody.recipe_steps
-        recipe.ingredients = requestBody.ingredients
-        recipe.category_id = requestBody.category_id
-        recipe.prep_time = requestBody.prep_time
-
-        await recipe.save()
-        return recipe
+        return this.saveRecipe(recipe, requestBody)
     }
 
     public async update({ params, request }: HttpContextContract) {
         const recipeSchema = this.getRecipeSchema()
 
         const requestBody = await request.validate({ schema: recipeSchema })
-        const name = requestBody.name
 
         const recipe = await Recipe.findOrFail(params.id)
-        recipe.name = name
-        recipe.thumbnail = requestBody.thumbnail
-        recipe.is_featured = requestBody.is_featured
-        recipe.cook_time = requestBody.cook_time
-        recipe.recipe_steps = requestBody.recipe_steps
-        recipe.ingredients = requestBody.ingredients
-        recipe.category_id = requestBody.category_id
-        recipe.prep_time = requestBody.prep_time
-
-        await recipe.save()
-        return recipe
+        return this.saveRecipe(recipe, requestBody)
     }
 
     public async show({ params }: HttpContextContract) {

@@ -15,6 +15,23 @@ export default class ExerciseLogsController {
         })
     }
 
+    private async authenticate({ auth }) {
+        await auth.use('api').authenticate()
+        return auth.user!
+    }
+
+    private async saveExerciseLog(exerciseLog, payload, user) {
+        exerciseLog.type = payload.type
+        exerciseLog.intensity = payload.intensity
+        exerciseLog.duration = payload.duration
+        exerciseLog.name = payload.name
+        exerciseLog.family_member_id = payload.family_member_id
+        exerciseLog.date = payload.date
+        await exerciseLog.related('user').associate(user)
+        await exerciseLog.save()
+        return exerciseLog
+    }
+
     public async index({ auth }: HttpContextContract) {
         await auth.use('api').authenticate()
         return ExerciseLog.query().where('user_id', '=', auth.user!.id)
@@ -26,18 +43,8 @@ export default class ExerciseLogsController {
         const exerciseLogPayload = await request.validate({ schema: exerciseLogSchema })
 
         const exerciseLog = new ExerciseLog()
-
-        exerciseLog.type = exerciseLogPayload.type
-        exerciseLog.intensity = exerciseLogPayload.intensity
-        exerciseLog.duration = exerciseLogPayload.duration
-        exerciseLog.name = exerciseLogPayload.name
-        exerciseLog.family_member_id = exerciseLogPayload.family_member_id
-        exerciseLog.date = exerciseLogPayload.date
-        await auth.use('api').authenticate()
-        await exerciseLog.related('user').associate(auth.user!)
-
-        await exerciseLog.save()
-        return exerciseLog
+        const user = await this.authenticate({ auth })
+        return this.saveExerciseLog(exerciseLog, exerciseLogPayload, user)
     }
 
     public async show({ params, auth }: HttpContextContract) {

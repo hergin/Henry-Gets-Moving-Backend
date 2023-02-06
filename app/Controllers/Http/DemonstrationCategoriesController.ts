@@ -9,6 +9,14 @@ export default class DemonstrationCategoriesController {
         })
     }
 
+    private async saveDemonstrationCategory(demonstrationCategory, payload) {
+        demonstrationCategory.name = payload.name
+
+        await demonstrationCategory.save()
+
+        return demonstrationCategory
+    }
+
     public async index({}: HttpContextContract) {
         return DemonstrationCategory.query().orderBy('name')
     }
@@ -18,13 +26,9 @@ export default class DemonstrationCategoriesController {
         const demonstrationCategoryPayload = await request.validate({
             schema: demonstrationSchema,
         })
-
         const demonstrationCategory = new DemonstrationCategory()
-        demonstrationCategory.name = demonstrationCategoryPayload.name
 
-        await demonstrationCategory.save()
-
-        return demonstrationCategory
+        return this.saveDemonstrationCategory(demonstrationCategory, demonstrationCategoryPayload)
     }
 
     public async destroy({ params }: HttpContextContract) {

@@ -3,12 +3,18 @@ import { schema } from '@ioc:Adonis/Core/Validator'
 import ExerciseCategory from 'App/Models/ExerciseCategory'
 
 export default class ExerciseCategoriesController {
-    private getExerciseCategoriesSchema(){
+    private getExerciseCategoriesSchema() {
         return schema.create({
             name: schema.string(),
         })
     }
 
+    private async saveExerciseCategory(exerciseCategory, payload) {
+        exerciseCategory.name = payload.name
+
+        await exerciseCategory.save()
+        return exerciseCategory
+    }
     public async index({}: HttpContextContract) {
         return ExerciseCategory.query().orderBy('name')
     }
@@ -19,10 +25,8 @@ export default class ExerciseCategoriesController {
         const exerciseCategoryPayload = await request.validate({ schema: exerciseCategorySchema })
 
         const exerciseCategory = new ExerciseCategory()
-        exerciseCategory.name = exerciseCategoryPayload.name
 
-        await exerciseCategory.save()
-        return exerciseCategory
+        return this.saveExerciseCategory(exerciseCategory, exerciseCategoryPayload)
     }
 
     public async show({ params }: HttpContextContract) {

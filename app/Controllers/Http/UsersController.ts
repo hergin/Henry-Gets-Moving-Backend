@@ -3,11 +3,15 @@ import User from 'App/Models/User'
 import { schema } from '@ioc:Adonis/Core/Validator'
 
 export default class UsersController {
-
-    private getUserSchema(){
+    private getUserSchema() {
         return schema.create({
             email: schema.string({ trim: true }),
         })
+    }
+
+    private async saveUser(newUser, payload) {
+        newUser.email = payload.email
+        await newUser.save()
     }
 
     public async index({}: HttpContextContract) {}
@@ -16,20 +20,14 @@ export default class UsersController {
         const userSchema = this.getUserSchema()
         const requestBody = await request.validate({ schema: userSchema })
 
-        const email = requestBody.email
-
-        const currentUser = await User.findBy('email', email)
+        const currentUser = await User.findBy('email', requestBody.email)
         if (currentUser !== null) {
             response.badRequest('User already exists')
             return
         }
 
         const newUser = new User()
-        newUser.email = email
-
-        await newUser.save()
-
-        return newUser
+        return this.saveUser(newUser, requestBody)
     }
 
     public async login({ request, auth, response }: HttpContextContract) {

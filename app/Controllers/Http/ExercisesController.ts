@@ -3,7 +3,7 @@ import Exercise from 'App/Models/Exercise'
 import { schema } from '@ioc:Adonis/Core/Validator'
 
 export default class ExercisesController {
-    private getExerciseSchema(){
+    private getExerciseSchema() {
         return schema.create({
             name: schema.string({ trim: true }),
             thumbnail_link: schema.string({ trim: true }),
@@ -11,6 +11,17 @@ export default class ExercisesController {
             is_featured: schema.boolean(),
             category_id: schema.number(),
         })
+    }
+
+    private async saveExercise(exercise, payload) {
+        exercise.name = payload.name
+        exercise.thumbnail_link = payload.thumbnail_link
+        exercise.video_link = payload.video_link
+        exercise.is_featured = payload.is_featured
+        exercise.category_id = payload.category_id
+
+        await exercise.save()
+        return exercise
     }
 
     public async index({}: HttpContextContract) {
@@ -39,14 +50,7 @@ export default class ExercisesController {
         }
 
         const exercise = new Exercise()
-        exercise.name = name
-        exercise.thumbnail_link = requestBody.thumbnail_link
-        exercise.video_link = requestBody.video_link
-        exercise.is_featured = requestBody.is_featured
-        exercise.category_id = requestBody.category_id
-
-        await exercise.save()
-        return exercise
+        return this.saveExercise(exercise, requestBody)
     }
 
     public async show({ params }: HttpContextContract) {
@@ -59,17 +63,8 @@ export default class ExercisesController {
 
         const requestBody = await request.validate({ schema: exerciseSchema })
 
-        const name = requestBody.name
-
         const exercise = await Exercise.findOrFail(params.id)
-        exercise.name = name
-        exercise.thumbnail_link = requestBody.thumbnail_link
-        exercise.video_link = requestBody.video_link
-        exercise.is_featured = requestBody.is_featured
-        exercise.category_id = requestBody.category_id
-
-        await exercise.save()
-        return exercise
+        return this.saveExercise(exercise, requestBody)
     }
 
     public async destroy({ params }: HttpContextContract) {

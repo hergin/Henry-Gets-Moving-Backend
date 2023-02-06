@@ -11,6 +11,18 @@ export default class DemonstrationsController {
             demonstration_category_id: schema.number(),
         })
     }
+
+    private async saveDemonstration(demo, payload) {
+        demo.name = payload.name
+        demo.thumbnail_link = payload.thumbnail_link
+        demo.video_link = payload.video_link
+        demo.demonstration_category_id = payload.demonstration_category_id
+
+        await demo.save()
+
+        return demo
+    }
+
     public async index({}: HttpContextContract) {
         return Demonstration.query().orderBy('name').preload('demonstrationCategory')
     }
@@ -29,14 +41,7 @@ export default class DemonstrationsController {
         const demoPayload = await request.validate({ schema: demonstrationSchema })
 
         const demo = new Demonstration()
-        demo.name = demoPayload.name
-        demo.thumbnail_link = demoPayload.thumbnail_link
-        demo.video_link = demoPayload.video_link
-        demo.demonstration_category_id = demoPayload.demonstration_category_id
-
-        await demo.save()
-
-        return demo
+        return this.saveDemonstration(demo, demoPayload)
     }
 
     public async show({ params }: HttpContextContract) {
@@ -51,14 +56,7 @@ export default class DemonstrationsController {
         const demoPayload = await request.validate({ schema: demonstrationSchema })
         const demo = await Demonstration.findOrFail(params.id)
 
-        demo.name = demoPayload.name ?? demo.name
-        demo.thumbnail_link = demoPayload.thumbnail_link ?? demo.thumbnail_link
-        demo.video_link = demoPayload.video_link ?? demo.video_link
-        demo.demonstration_category_id =
-            demoPayload.demonstration_category_id ?? demo.demonstration_category_id
-
-        await demo.save()
-        return demo
+        return this.saveDemonstration(demo, demoPayload)
     }
 
     public async destroy({ params }: HttpContextContract) {

@@ -12,6 +12,12 @@ export default class FamilyMembersController {
         })
     }
 
+    private getCheckFamilyMemberSchema() {
+        return schema.create({
+            name: schema.string(),
+        })
+    }
+
     public async index({ auth }: HttpContextContract) {
         await auth.use('api').authenticate()
         const familyMembers = await FamilyMember.query()
@@ -42,7 +48,7 @@ export default class FamilyMembersController {
     }
 
     public async checkFamilyMember({ request, auth }: HttpContextContract) {
-        const familyMemberSchema = this.getFamilyMemberSchema()
+        const familyMemberSchema = this.getCheckFamilyMemberSchema()
         const familyMemberPayload = await request.validate({ schema: familyMemberSchema })
         await auth.use('api').authenticate()
         return await FamilyMember.firstOrCreate({

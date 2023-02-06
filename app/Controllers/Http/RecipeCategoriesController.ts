@@ -9,6 +9,13 @@ export default class RecipeCategoriesController {
         })
     }
 
+    private async saveRecipeCategory(recipeCategory, payload) {
+        recipeCategory.name = payload.name
+
+        await recipeCategory.save()
+        return recipeCategory
+    }
+
     public async index({}: HttpContextContract) {
         return RecipeCategory.query().orderBy('name')
     }
@@ -24,10 +31,7 @@ export default class RecipeCategoriesController {
         }
 
         const recipeCategory = new RecipeCategory()
-        recipeCategory.name = requestBody.name
-
-        await recipeCategory.save()
-        return recipeCategory
+        return this.saveRecipeCategory(recipeCategory, requestBody)
     }
 
     public async show({ params }: HttpContextContract) {
