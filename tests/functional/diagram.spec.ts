@@ -7,4 +7,11 @@ test.group('Diagrams', (group) => {
 
         return () => Database.rollbackGlobalTransaction()
     })
+    test("can't create diagram without required fields", async ({ assert, client, route }) => {
+        const result = await client.post(route('DiagramsController.store'))
+        result.assertStatus(422)
+        result.assertBodyContains({
+            errors: [{ message: 'required validation failed', rule: 'required', field: 'name' }],
+        })
+    })
 })
