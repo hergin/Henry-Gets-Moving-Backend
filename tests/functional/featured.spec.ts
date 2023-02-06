@@ -1,5 +1,5 @@
 import { test } from '@japa/runner'
 
 test.group('Featured', () => {
-  // Write your test here
+    // Write your test here
 })
