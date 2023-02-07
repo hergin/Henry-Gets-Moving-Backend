@@ -7,4 +7,9 @@ test.group('Featured', (group) => {
 
         return () => Database.rollbackGlobalTransaction()
     })
+
+    test("get featured exercise", async ({client, route}) => {
+        await client.post(route('FeaturedController.updateFeaturedExercise', {id: 14})).dump()
+        await client.get(route('FeaturedController.getFeaturedExercise')).dump()
+    })
 })
