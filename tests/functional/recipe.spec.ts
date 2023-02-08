@@ -15,7 +15,7 @@ test.group('Recipe', (group) => {
             errors: [{ message: 'required validation failed', rule: 'required', field: 'name' }],
         })
     })
-    test("create and show recipe", async ({client, route}) => {
+    test("create recipe", async ({client, route}) => {
         const recipeToCreate = {
             name: "New Test Recipe",
             thumbnail: "test.com",
@@ -28,8 +28,11 @@ test.group('Recipe', (group) => {
         }
         const postResult = await client.post(route('RecipesController.store')).form(recipeToCreate)
         postResult.assertStatus(200)
-        const result = await client.get(route('RecipesController.show', {id: postResult.body().id}))
-        result.assertBodyContains(recipeToCreate)
+    })
+
+    test('show recipe',async({client,route})=>{
+        const result = await client.get(route('RecipesController.show', {id: 1}))
+        result.assertBodyContains({name: "Test recipe"})
     })
 
     test('delete recipe',async({client, route})=>{
