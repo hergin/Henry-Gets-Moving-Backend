@@ -36,4 +36,17 @@ test.group('Exercise', (group) => {
         const result = await client.delete(route('ExercisesController.destroy', {id: 1}))
         result.assertStatus(200)
     })
+
+    test('update exercise',async({client,route})=>{
+        const exerciseToUpdate = {
+            name: "Test Exercise",
+            thumbnail_link: "test.com",
+            video_link: "youtube.whatever",
+            is_featured: false,
+            category_id: 1
+        }
+        const result = await client.put(route('ExercisesController.update',{id:1})).form(exerciseToUpdate)
+        result.assertStatus(200)
+        result.assertBodyContains(exerciseToUpdate)
+    })
 })
