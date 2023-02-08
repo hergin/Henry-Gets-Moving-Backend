@@ -20,7 +20,7 @@ test.group('Recipe', (group) => {
             name: "Test Recipe",
             thumbnail: "test.com",
             cook_time: "8 years",
-            is_featured: 0,
+            is_featured: false,
             category_id: 1,
             prep_time: "20 minutes",
             recipe_steps: "step 1. cook",
@@ -30,5 +30,10 @@ test.group('Recipe', (group) => {
         postResult.assertStatus(200)
         const result = await client.get(route('RecipesController.show', {id: postResult.body().id}))
         result.assertBodyContains(recipeToCreate)
+    })
+
+    test('delete recipe',async({client, route})=>{
+        const result = await client.delete(route('RecipesController.destroy', {id: 1}))
+        result.assertStatus(200)
     })
 })
