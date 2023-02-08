@@ -7,7 +7,7 @@ test.group('Exercise category', (group) => {
 
         return () => Database.rollbackGlobalTransaction()
     })
-    test("can't create exercise category without required fields", async ({client,route}) => {
+    test("can't create exercise category without required fields", async ({ client, route }) => {
         const result = await client.post(route('ExerciseCategoriesController.store'))
         result.assertStatus(422)
         result.assertBodyContains({
