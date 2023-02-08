@@ -7,7 +7,7 @@ test.group('Exercise', (group) => {
 
         return () => Database.rollbackGlobalTransaction()
     })
-    test("can't create exercises without required fields", async ({ assert, client, route }) => {
+    test("can't create exercises without required fields", async ({ client, route }) => {
         const result = await client.post(route('ExercisesController.store'))
         result.assertStatus(422)
         result.assertBodyContains({

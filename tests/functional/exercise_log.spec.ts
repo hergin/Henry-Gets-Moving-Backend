@@ -2,21 +2,13 @@ import { test } from '@japa/runner'
 import User from 'App/Models/User'
 
 test.group('Exercise log', () => {
-    test("can't create exercise log without login", async ({ assert, client, route }) => {
+    test("can't create exercise log without login", async ({ client, route }) => {
         const result = await client.post(route('ExerciseLogsController.store'))
         result.assertStatus(422)
         result.assertBodyContains({
             errors: [{ message: 'required validation failed', rule: 'required', field: 'type' }],
         })
     })
-    // test("can't get exercise logs without login", async ({ assert, client, route }) => {
-    //     assert.plan(2)
-    //     const result = await client.get(route('ExerciseLogsController.index'))
-    //     result.assertStatus(401)
-    //     result.assertBodyContains({
-    //         errors: [{ message: 'required validation failed', rule: 'required' }],
-    //     })
-    // })
     test('get exercise logs with login', async ({ assert, client, route }) => {
         assert.plan(2)
         const user = await User.find(1)
