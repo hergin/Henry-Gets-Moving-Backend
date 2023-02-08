@@ -1,61 +1,61 @@
 openapi: 3.0.0
 info:
-  description: APi Spec for Henry Gets Moving
-  title: Henry Gets Moving
-  version: 0.1.0
+    description: APi Spec for Henry Gets Moving
+    title: Henry Gets Moving
+    version: 0.1.0
 tags:
-  - name: users
-    description: Operations about user
-  - name: familyMembers
-    description: Operations about familyMembers
-  - name: exerciseLogs
-    description: Operations about exerciseLogs
+    - name: users
+      description: Operations about user
+    - name: familyMembers
+      description: Operations about familyMembers
+    - name: exerciseLogs
+      description: Operations about exerciseLogs
 paths:
-  /users:
-    post:
-      tags: 
-        - users
-      requestBody:
-        description: Update an existent pet in the store
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/User'
-        required: true
-      responses:
-        '200':
-          description: Successful Response
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-        '400':
-          description: Bad Request
-          
-  /users/login:
-    post:
-      tags: 
-        - users
-      responses: 
-        '200':
-          description: Successful Response
+    /users:
+        post:
+            tags:
+                - users
+            requestBody:
+                description: Update an existent pet in the store
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/User'
+                required: true
+            responses:
+                '200':
+                    description: Successful Response
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/User'
+                '400':
+                    description: Bad Request
+
+    /users/login:
+        post:
+            tags:
+                - users
+            responses:
+                '200':
+                    description: Successful Response
 components:
-  schemas:
-    User:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          example: 1
-        created_at:
-          type: string
-          format: time
-          example: 2022-10-28T01:21:27.653+00:00
-        updated_at:
-          type: string
-          format: time
-          example: 2022-10-28T01:21:27.653+00:00
-        email:
-          type: string
-          example: test@gmail.com
+    schemas:
+        User:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    format: int64
+                    example: 1
+                created_at:
+                    type: string
+                    format: time
+                    example: 2022-10-28T01:21:27.653+00:00
+                updated_at:
+                    type: string
+                    format: time
+                    example: 2022-10-28T01:21:27.653+00:00
+                email:
+                    type: string
+                    example: test@gmail.com

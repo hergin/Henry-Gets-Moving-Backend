@@ -18,6 +18,7 @@ import 'reflect-metadata'
 import sourceMapSupport from 'source-map-support'
 import { Ignitor } from '@adonisjs/core/build/standalone'
 import { configure, processCliArgs, run, RunnerHooksHandler } from '@japa/runner'
+import { apiClient } from '@japa/preset-adonis'
 
 sourceMapSupport.install({ handleUncaughtExceptions: false })
 
@@ -43,3 +44,11 @@ kernel
 
         run()
     })
+
+configure({
+    ...processCliArgs(process.argv.slice(2)),
+    ...{
+        files: ['/tests/functional/**.spec.ts'],
+        plugins: [apiClient('http://127.0.0.1:3333')],
+    },
+})
