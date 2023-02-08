@@ -9,7 +9,12 @@ test.group('Featured', (group) => {
     })
 
     test("get featured exercise", async ({client, route}) => {
-        await client.post(route('FeaturedController.updateFeaturedExercise', {id: 14})).dump()
-        await client.get(route('FeaturedController.getFeaturedExercise')).dump()
+        const result = await client.get(route('FeaturedController.getFeaturedExercise'))
+        result.assertStatus(200)
+        result.assertBodyContains({name: "Test exercise 1"})
+    })
+
+    test('get featured recipe',async({client,route})=>{
+        
     })
 })
