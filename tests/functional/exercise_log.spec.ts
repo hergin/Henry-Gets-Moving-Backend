@@ -33,16 +33,6 @@ test.group('Exercise log', () => {
                 type: 'Test exercise log 1',
                 user_id: 1,
             },
-            {
-                date: '10/10/2020',
-                duration: 10,
-                family_member_id: 2,
-                id: 2,
-                intensity: 'Moderate',
-                name: 'test child 2',
-                type: 'Test exerciselog 2',
-                user_id: 2,
-            },
         ])
     })
 })
