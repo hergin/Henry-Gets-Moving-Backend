@@ -14,14 +14,16 @@ test.group('Recipe Category', (group) => {
             errors: [{ message: 'required validation failed', rule: 'required', field: 'name' }],
         })
     })
-    test("create and show recipecategory", async ({client, route}) => {
+    test("create recipecategory", async ({client, route}) => {
         const categoryToCreate = {
             name: "Test Recipe Category",
         }
         const postResult = await client.post(route('RecipeCategoriesController.store')).form(categoryToCreate)
         postResult.assertStatus(200)
-        const result = await client.get(route('RecipeCategoriesController.show', {id: postResult.body().id}))
-        result.dump()
-        result.assertBodyContains(categoryToCreate)
+    })
+    test("show all recipe categories",async({client})=>{
+        const result = await client.get('/recipeCategories')
+        result.assertStatus(200)
+        result.assertBodyContains([{id:1},{id:2}])
     })
 })
