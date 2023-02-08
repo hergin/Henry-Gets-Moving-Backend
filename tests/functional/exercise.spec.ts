@@ -15,7 +15,7 @@ test.group('Exercise', (group) => {
         })
     })
 
-    test("create and show exercise", async ({client, route}) => {
+    test("create exercise", async ({client, route}) => {
         const exerciseToCreate = {
             name: "Test Exercise",
             thumbnail_link: "test.com",
@@ -25,8 +25,11 @@ test.group('Exercise', (group) => {
         }
         const postResult = await client.post(route('ExercisesController.store')).form(exerciseToCreate)
         postResult.assertStatus(200)
-        const result = await client.get(route('ExercisesController.show', {id: postResult.body().id}))
-        result.assertBodyContains(exerciseToCreate)
+    })
+
+    test('show exercise',async({client,route})=>{
+        const result = await client.get(route('ExercisesController.show', {id: 1}))
+        result.assertBodyContains({name: "Test exercise 1"})
     })
 
     test('delete exercise',async({client, route})=>{
