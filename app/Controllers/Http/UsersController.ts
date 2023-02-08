@@ -12,6 +12,7 @@ export default class UsersController {
     private async saveUser(newUser, payload) {
         newUser.email = payload.email
         await newUser.save()
+        return newUser
     }
 
     public async index({}: HttpContextContract) {}
