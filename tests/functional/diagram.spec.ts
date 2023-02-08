@@ -32,4 +32,11 @@ test.group('Diagrams', (group) => {
         const result = await client.delete(route('DiagramsController.destroy',{id:1}))
         result.assertStatus(200)
     })
+
+    test('update diagram',async({client,route})=>{
+        const diagramToUpdate = {name: "Updated Diagram",thumbnail_link: "updated.link"}
+        const result = await client.put(route('DiagramsController.update',{id:1})).form(diagramToUpdate)
+        result.assertStatus(200)
+        result.assertBodyContains(diagramToUpdate)
+    })
 })
