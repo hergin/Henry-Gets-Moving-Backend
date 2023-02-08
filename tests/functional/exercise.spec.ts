@@ -49,4 +49,10 @@ test.group('Exercise', (group) => {
         result.assertStatus(200)
         result.assertBodyContains(exerciseToUpdate)
     })
+
+    test('show all exercises',async({client})=>{
+        const result = await client.get('/exercises')
+        result.assertStatus(200)
+        result.assertBodyContains([{id: 1},{id: 2}])
+    })
 })
