@@ -39,4 +39,20 @@ test.group('Recipe', (group) => {
         const result = await client.delete(route('RecipesController.destroy', {id: 1}))
         result.assertStatus(200)
     })
+
+    test('update recipe',async({client,route})=>{
+        const recipeToUpdate = {
+            name: "Updated Test Recipe",
+            thumbnail: "test.com",
+            cook_time: "8 years",
+            is_featured: false,
+            category_id: 1,
+            prep_time: "20 minutes",
+            recipe_steps: "step 1. cook",
+            ingredients: "banana"
+        }
+        const result = await client.put(route('RecipesController.update',{id:1})).form(recipeToUpdate)
+        result.assertStatus(200)
+        result.assertBodyContains(recipeToUpdate)
+    })
 })
