@@ -9,4 +9,3 @@ test.group('Exercise log', () => {
         })
     })
 })
-
