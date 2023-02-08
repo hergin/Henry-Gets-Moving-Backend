@@ -55,4 +55,10 @@ test.group('Recipe', (group) => {
         result.assertStatus(200)
         result.assertBodyContains(recipeToUpdate)
     })
+
+    test('show all recipes',async({client})=>{
+        const result = await client.get('/recipes')
+        result.assertStatus(200)
+        result.assertBodyContains([{id:1}, {id:2}])
+    })
 })
