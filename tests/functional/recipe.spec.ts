@@ -17,10 +17,10 @@ test.group('Recipe', (group) => {
     })
     test("create and show recipe", async ({client, route}) => {
         const recipeToCreate = {
-            name: "Test Recipe",
+            name: "New Test Recipe",
             thumbnail: "test.com",
             cook_time: "8 years",
-            is_featured: false,
+            is_featured: 0,
             category_id: 1,
             prep_time: "20 minutes",
             recipe_steps: "step 1. cook",
