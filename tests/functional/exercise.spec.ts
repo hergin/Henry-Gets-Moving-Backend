@@ -28,4 +28,9 @@ test.group('Exercise', (group) => {
         const result = await client.get(route('ExercisesController.show', {id: postResult.body().id}))
         result.assertBodyContains(exerciseToCreate)
     })
+
+    test('delete exercise',async({client, route})=>{
+        const result = await client.delete(route('ExercisesController.destroy', {id: 1}))
+        result.assertStatus(200)
+    })
 })
