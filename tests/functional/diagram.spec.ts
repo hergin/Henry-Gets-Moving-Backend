@@ -39,4 +39,10 @@ test.group('Diagrams', (group) => {
         result.assertStatus(200)
         result.assertBodyContains(diagramToUpdate)
     })
+
+    test('show all diagrams',async({client})=>{
+        const result = await client.get("/diagrams")
+        result.assertStatus(200)
+        result.assertBodyContains([{id:1},{id:2}])
+    })
 })
