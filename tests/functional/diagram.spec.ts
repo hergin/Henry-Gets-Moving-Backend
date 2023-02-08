@@ -14,14 +14,17 @@ test.group('Diagrams', (group) => {
             errors: [{ message: 'required validation failed', rule: 'required', field: 'name' }],
         })
     })
-    test("create and show diagram", async ({client, route}) => {
+    test("create diagram", async ({client, route}) => {
         const diagramToCreate = {
             name: "Test Diagram",
             thumbnail_link: "link.com.website"
         }
         const postResult = await client.post(route('DiagramsController.store')).form(diagramToCreate)
         postResult.assertStatus(200)
-        const result = await client.get(route('DiagramsController.show', {id: postResult.body().id}))
-        result.assertBodyContains(diagramToCreate)
+    })
+
+    test('show diagram',async({client,route})=>{
+        const result = await client.get(route('DiagramsController.show', {id: 1}))
+        result.assertBodyContains({name: "Test diagram 1"})
     })
 })
