@@ -15,6 +15,8 @@ test.group('Featured', (group) => {
     })
 
     test('get featured recipe',async({client,route})=>{
-        
+        const result = await client.get(route('FeaturedController.getFeaturedRecipe'))
+        result.assertStatus(200)
+        result.assertBodyContains({name: "Test recipe"})
     })
 })
