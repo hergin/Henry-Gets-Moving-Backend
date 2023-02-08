@@ -27,4 +27,9 @@ test.group('Diagrams', (group) => {
         const result = await client.get(route('DiagramsController.show', {id: 1}))
         result.assertBodyContains({name: "Test diagram 1"})
     })
+
+    test('delete diagram',async({client,route})=>{
+        const result = await client.delete(route('DiagramsController.destroy',{id:1}))
+        result.assertStatus(200)
+    })
 })
