@@ -27,4 +27,8 @@ test.group('Exercise log', () => {
             },
         ])
     })
+    test('Delete exercise log', async ({client,route}) => {
+        const result = await client.delete(route('ExerciseLogsController.destroy', { id: 2 }));
+        result.assertStatus(200);
+    })
 })
