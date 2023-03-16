@@ -6,4 +6,5 @@ coverage
 .env
 tmp
 .idea
-.db/.nyc_output/
+.db/
+.nyc_output/
