@@ -52,4 +52,10 @@ export default class ExerciseLogsController {
         const familyMember = await FamilyMember.findOrFail(params.id)
         return ExerciseLog.query().where('family_member_id', '=', familyMember.id)
     }
+
+    public async destroy({params}: HttpContextContract) {
+        let log = await ExerciseLog.findOrFail(params.id);
+        await log.delete();
+        return log;
+    }
 }
