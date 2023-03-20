@@ -22,5 +22,5 @@ export default class ExerciseCategory extends BaseModel {
         relatedKey: 'id',
         pivotRelatedForeignKey: 'category_id',
     })
-    public exerciseCategories: ManyToMany<typeof Exercise>
+    public exercise: ManyToMany<typeof Exercise>
 }
