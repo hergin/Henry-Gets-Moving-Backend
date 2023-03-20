@@ -8,7 +8,7 @@ test.group('Recipe', (group) => {
         return () => Database.rollbackGlobalTransaction()
     })
 
-    test("can't create recipe without required fields", async ({ assert, client, route }) => {
+    test("can't create recipe without required fields", async ({ client, route }) => {
         const result = await client.post(route('RecipesController.store'))
         result.assertStatus(422)
         result.assertBodyContains({
@@ -21,7 +21,6 @@ test.group('Recipe', (group) => {
             thumbnail: 'test.com',
             cook_time: '8 years',
             is_featured: 0,
-            category_id: 1,
             prep_time: '20 minutes',
             recipe_steps: 'step 1. cook',
             ingredients: 'banana',
@@ -46,7 +45,6 @@ test.group('Recipe', (group) => {
             thumbnail: 'test.com',
             cook_time: '8 years',
             is_featured: false,
-            category_id: 1,
             prep_time: '20 minutes',
             recipe_steps: 'step 1. cook',
             ingredients: 'banana',

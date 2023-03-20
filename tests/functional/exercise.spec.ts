@@ -21,7 +21,6 @@ test.group('Exercise', (group) => {
             thumbnail_link: 'test.com',
             video_link: 'youtube.whatever',
             is_featured: 0,
-            category_id: 1,
         }
         const postResult = await client
             .post(route('ExercisesController.store'))
@@ -45,7 +44,6 @@ test.group('Exercise', (group) => {
             thumbnail_link: 'test.com',
             video_link: 'youtube.whatever',
             is_featured: false,
-            category_id: 1,
         }
         const result = await client
             .put(route('ExercisesController.update', { id: 1 }))
