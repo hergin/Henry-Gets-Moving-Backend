@@ -8,7 +8,6 @@ export default class DemonstrationsController {
             name: schema.string(),
             thumbnail_link: schema.string({ trim: true }),
             video_link: schema.string({ trim: true }),
-            demonstration_category_id: schema.number(),
         })
     }
 
@@ -16,7 +15,6 @@ export default class DemonstrationsController {
         demo.name = payload.name
         demo.thumbnail_link = payload.thumbnail_link
         demo.video_link = payload.video_link
-        demo.demonstration_category_id = payload.demonstration_category_id
 
         await demo.save()
 
@@ -24,15 +22,12 @@ export default class DemonstrationsController {
     }
 
     public async index({}: HttpContextContract) {
-        return Demonstration.query().orderBy('name').preload('demonstrationCategory')
+        return Demonstration.query().orderBy('name').preload('demoCategories')
     }
     public async getPaginated({ request }: HttpContextContract) {
         const page = request.input('page', 1)
         const limit = 8
-        return Demonstration.query()
-            .orderBy('name')
-            .preload('demonstrationCategory')
-            .paginate(page, limit)
+        return Demonstration.query().orderBy('name').preload('demoCategories').paginate(page, limit)
     }
 
     public async store({ request }: HttpContextContract) {
@@ -46,7 +41,7 @@ export default class DemonstrationsController {
 
     public async show({ params }: HttpContextContract) {
         const demo = await Demonstration.findOrFail(params.id)
-        await demo.load('demonstrationCategory')
+        await demo.load('demoCategories')
         return demo
     }
 
@@ -61,6 +56,7 @@ export default class DemonstrationsController {
 
     public async destroy({ params }: HttpContextContract) {
         let demo = await Demonstration.findOrFail(params.id)
+        await demo.related('demoCategories').detach()
         await demo.delete()
         return demo
     }

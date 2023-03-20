@@ -6,12 +6,12 @@ export default class FeaturedController {
     public async getFeaturedExercise({}: HttpContextContract) {
         const featured = await Exercise.query()
             .where('is_featured', true)
-            .preload('exerciseCategory')
+            .preload('exerciseCategories')
         return featured[0]
     }
 
     public async getFeaturedRecipe({}: HttpContextContract) {
-        const featured = await Recipe.query().where('is_featured', true).preload('recipeCategory')
+        const featured = await Recipe.query().where('is_featured', true).preload('recipeCategories')
         return featured[0]
     }
 
@@ -24,7 +24,7 @@ export default class FeaturedController {
     public async updateFeaturedRecipe({ params }: HttpContextContract) {
         const featuredArray = await Recipe.query()
             .where('is_featured', true)
-            .preload('recipeCategory')
+            .preload('recipeCategories')
         const oldFeatured = featuredArray[0]
         const newFeatured = await Recipe.findOrFail(params.id)
         return this.swapFeatured(newFeatured, oldFeatured)

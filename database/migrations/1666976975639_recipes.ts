@@ -12,7 +12,6 @@ export default class extends BaseSchema {
             table.string('cook_time')
             table.text('ingredients', 'text').notNullable()
             table.text('recipe_steps', 'text').notNullable()
-            table.integer('category_id').notNullable().unsigned().references('recipe_categories.id')
             table.boolean('is_featured').notNullable().defaultTo(false)
             table.string('prep_time')
 

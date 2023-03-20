@@ -12,7 +12,6 @@ export default class extends BaseSeeder {
                 ingredients: 'banana',
                 recipe_steps: '1. cook',
                 is_featured: true,
-                category_id: 1,
             },
             {
                 name: 'Test recipe 2',
@@ -22,7 +21,6 @@ export default class extends BaseSeeder {
                 ingredients: 'banana',
                 recipe_steps: '1. cook',
                 is_featured: false,
-                category_id: 2,
             },
         ])
     }

@@ -11,7 +11,6 @@ export default class RecipesController {
             ingredients: schema.string({}, [rules.maxLength(65535)]),
             recipe_steps: schema.string({}, [rules.maxLength(65535)]),
             is_featured: schema.boolean(),
-            category_id: schema.number(),
             prep_time: schema.string(),
         })
     }
@@ -23,7 +22,6 @@ export default class RecipesController {
         recipe.cook_time = payload.cook_time
         recipe.recipe_steps = payload.recipe_steps
         recipe.ingredients = payload.ingredients
-        recipe.category_id = payload.category_id
         recipe.prep_time = payload.prep_time
 
         await recipe.save()
@@ -31,14 +29,14 @@ export default class RecipesController {
     }
 
     public async index({}: HttpContextContract) {
-        return Recipe.query().preload('recipeCategory').orderBy('name')
+        return Recipe.query().preload('recipeCategories').orderBy('name')
     }
 
     public async getPaginated({ request }: HttpContextContract) {
         const page = request.input('page', 1)
         const limit = 8
         return await Recipe.query()
-            .preload('recipeCategory')
+            .preload('recipeCategories')
             .orderBy('created_at')
             .paginate(page, limit)
     }
@@ -68,12 +66,13 @@ export default class RecipesController {
     }
 
     public async show({ params }: HttpContextContract) {
-        const recipe = await Recipe.query().where('id', params.id).preload('recipeCategory')
+        const recipe = await Recipe.query().where('id', params.id).preload('recipeCategories')
         return recipe[0]
     }
 
     public async destroy({ params }: HttpContextContract) {
         let recipe = await Recipe.findOrFail(params.id)
+        await recipe.related('recipeCategories').detach()
         await recipe.delete()
         return recipe
     }

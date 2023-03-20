@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm'
 import DemonstrationCategory from 'App/Models/DemonstrationCategory'
 
 export default class Demonstration extends BaseModel {
@@ -15,17 +15,18 @@ export default class Demonstration extends BaseModel {
     @column()
     public video_link: string
 
-    @column()
-    public demonstration_category_id: number
-
     @column.dateTime({ autoCreate: true })
     public createdAt: DateTime
 
     @column.dateTime({ autoCreate: true, autoUpdate: true })
     public updatedAt: DateTime
 
-    @belongsTo(() => DemonstrationCategory, {
-        foreignKey: 'demonstration_category_id',
+    @manyToMany(() => DemonstrationCategory, {
+        pivotTable: 'categories_demonstrations',
+        localKey: 'id',
+        pivotForeignKey: 'demo_id',
+        relatedKey: 'id',
+        pivotRelatedForeignKey: 'category_id',
     })
-    public demonstrationCategory: BelongsTo<typeof DemonstrationCategory>
+    public demoCategories: ManyToMany<typeof DemonstrationCategory>
 }

@@ -10,11 +10,6 @@ export default class extends BaseSchema {
             table.string('thumbnail_link').notNullable()
             table.string('video_link').notNullable()
             table.boolean('is_featured').notNullable().defaultTo(false)
-            table
-                .integer('category_id')
-                .notNullable()
-                .unsigned()
-                .references('exercise_categories.id')
 
             /**
              * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

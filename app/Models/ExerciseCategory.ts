@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
-import Exercise from 'App/Models/Exercise'
+import { BaseModel, column, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm'
+import Exercise from "App/Models/Exercise";
 
 export default class ExerciseCategory extends BaseModel {
     @column({ isPrimary: true })
@@ -15,8 +15,12 @@ export default class ExerciseCategory extends BaseModel {
     @column.dateTime({ autoCreate: true, autoUpdate: true })
     public updatedAt: DateTime
 
-    @hasMany(() => Exercise, {
-        foreignKey: 'category_id',
+    @manyToMany(() => Exercise, {
+        pivotTable: 'categories_exercises',
+        localKey: 'id',
+        pivotForeignKey: 'exercise_id',
+        relatedKey: 'id',
+        pivotRelatedForeignKey: 'category_id',
     })
-    public exercise: HasMany<typeof Exercise>
+    public exercise: ManyToMany<typeof Exercise>
 }

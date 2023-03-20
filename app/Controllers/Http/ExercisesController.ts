@@ -9,7 +9,6 @@ export default class ExercisesController {
             thumbnail_link: schema.string({ trim: true }),
             video_link: schema.string({ trim: true }),
             is_featured: schema.boolean(),
-            category_id: schema.number(),
         })
     }
 
@@ -18,21 +17,20 @@ export default class ExercisesController {
         exercise.thumbnail_link = payload.thumbnail_link
         exercise.video_link = payload.video_link
         exercise.is_featured = payload.is_featured
-        exercise.category_id = payload.category_id
 
         await exercise.save()
         return exercise
     }
 
     public async index({}: HttpContextContract) {
-        return Exercise.query().preload('exerciseCategory').orderBy('created_at')
+        return Exercise.query().preload('exerciseCategories').orderBy('created_at')
     }
 
     public async getPaginated({ request }: HttpContextContract) {
         const page = request.input('page', 1)
         const limit = 8
         return await Exercise.query()
-            .preload('exerciseCategory')
+            .preload('exerciseCategories')
             .orderBy('created_at')
             .paginate(page, limit)
     }
@@ -54,7 +52,7 @@ export default class ExercisesController {
     }
 
     public async show({ params }: HttpContextContract) {
-        const exercise = await Exercise.query().where('id', params.id).preload('exerciseCategory')
+        const exercise = await Exercise.query().where('id', params.id).preload('exerciseCategories')
         return exercise[0]
     }
 
@@ -69,6 +67,7 @@ export default class ExercisesController {
 
     public async destroy({ params }: HttpContextContract) {
         let exercise = await Exercise.findOrFail(params.id)
+        await exercise.related('exerciseCategories').detach()
         await exercise.delete()
         return exercise
     }
