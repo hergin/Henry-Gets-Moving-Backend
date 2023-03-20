@@ -22,7 +22,6 @@ test.group('Demonstration', (group) => {
             name: 'Japa 101',
             thumbnail_link: 'image.com/image.png',
             video_link: 'youtube.com',
-            demonstration_category_id: 1,
         })
 
         // 1st assertion
@@ -33,7 +32,6 @@ test.group('Demonstration', (group) => {
             name: 'Japa 101',
             thumbnail_link: 'image.com/image.png',
             video_link: 'youtube.com',
-            demonstration_category_id: 1,
         })
     })
     test('get all demos', async ({ client, assert }) => {
@@ -48,13 +46,11 @@ test.group('Demonstration', (group) => {
                 name: 'Test Demo',
                 thumbnail_link: 'image.com/image.png',
                 video_link: 'youtube.com/video',
-                demonstration_category_id: 1,
             },
             {
                 name: 'Test Demo 2',
                 thumbnail_link: 'image.com',
                 video_link: 'youtube.video',
-                demonstration_category_id: 2,
             },
         ])
     })
@@ -69,7 +65,6 @@ test.group('Demonstration', (group) => {
             name: 'Test Demo',
             thumbnail_link: 'image.com/image.png',
             video_link: 'youtube.com/video',
-            demonstration_category_id: 1,
         })
     })
     test('update demo', async ({ client, assert }) => {
@@ -79,7 +74,6 @@ test.group('Demonstration', (group) => {
             name: 'Test Demo Updated',
             thumbnail_link: 'image.com/image.png',
             video_link: 'youtube.com',
-            demonstration_category_id: 1,
         })
 
         response.assertStatus(200)
@@ -88,7 +82,6 @@ test.group('Demonstration', (group) => {
             name: 'Test Demo Updated',
             thumbnail_link: 'image.com/image.png',
             video_link: 'youtube.com',
-            demonstration_category_id: 1,
         })
     })
     test('delete a demo', async ({ client, assert }) => {
@@ -102,7 +95,6 @@ test.group('Demonstration', (group) => {
             name: 'Test Demo',
             thumbnail_link: 'image.com/image.png',
             video_link: 'youtube.com/video',
-            demonstration_category_id: 1,
         })
     })
 })
