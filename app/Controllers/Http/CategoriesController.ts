@@ -1,6 +1,7 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Exercise from 'App/Models/Exercise'
 import Recipe from 'App/Models/Recipe'
+import Demonstration from 'App/Models/Demonstration'
 
 export default class CategoriesController {
     public async setExerciseCategories({ params, request }: HttpContextContract) {
@@ -15,5 +16,12 @@ export default class CategoriesController {
         const categoriesIDS = request.body()
         await recipe.related('recipeCategories').sync(categoriesIDS)
         return recipe.recipeCategories
+    }
+
+    public async setDemoCategories({ params, request }: HttpContextContract) {
+        const demo = await Demonstration.findOrFail(params.id)
+        const categoriesIDS = request.body()
+        await demo.related('demoCategories').sync(categoriesIDS)
+        return demo.demoCategories
     }
 }
