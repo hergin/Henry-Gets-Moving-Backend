@@ -8,7 +8,6 @@ export default class DemonstrationsController {
             name: schema.string(),
             thumbnail_link: schema.string({ trim: true }),
             video_link: schema.string({ trim: true }),
-            demonstration_category_id: schema.number(),
         })
     }
 
