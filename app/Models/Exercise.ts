@@ -18,9 +18,6 @@ export default class Exercise extends BaseModel {
     @column()
     public is_featured: boolean
 
-    @column()
-    public category_id: number
-
     @column.dateTime({ autoCreate: true })
     public createdAt: DateTime
 
