@@ -67,6 +67,7 @@ export default class ExercisesController {
 
     public async destroy({ params }: HttpContextContract) {
         let exercise = await Exercise.findOrFail(params.id)
+        await exercise.related('exerciseCategories').detach()
         await exercise.delete()
         return exercise
     }

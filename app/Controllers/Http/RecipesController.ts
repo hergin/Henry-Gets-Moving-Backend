@@ -72,6 +72,7 @@ export default class RecipesController {
 
     public async destroy({ params }: HttpContextContract) {
         let recipe = await Recipe.findOrFail(params.id)
+        await recipe.related('recipeCategories').detach()
         await recipe.delete()
         return recipe
     }
