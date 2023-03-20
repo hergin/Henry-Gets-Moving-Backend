@@ -51,6 +51,8 @@ Route.get('/paginatedDemos', 'DemonstrationsController.getPaginated')
 Route.post('/changeFeaturedExercise/:id', 'FeaturedController.updateFeaturedExercise')
 Route.post('/changeFeaturedRecipe/:id', 'FeaturedController.updateFeaturedRecipe')
 
+Route.post('/setExerciseCategories/:id', 'CategoriesController.setExerciseCategories')
+
 Route.get('/', async () => {
     return { hello: 'world' }
 })
