@@ -6,5 +6,6 @@ export default class CategoriesController {
         const exercise = await Exercise.findOrFail(params.id)
         const categoriesIDS = request.body()
         await exercise.related('exerciseCategories').sync(categoriesIDS)
+        return exercise.exerciseCategories
     }
 }
