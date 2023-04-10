@@ -63,6 +63,7 @@ export default class FamilyMembersController {
         const familyMember = await FamilyMember.findOrFail(params.id)
         const requestBody = await request.validate({schema:familyMemberSchema})
         familyMember.name = requestBody.name
+        familyMember.user_id = requestBody.user_id
         await familyMember.load('user')
         await familyMember.save()
         return familyMember
