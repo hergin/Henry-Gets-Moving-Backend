@@ -68,4 +68,11 @@ export default class FamilyMembersController {
         await familyMember.save()
         return familyMember
     }
+
+    public async destroy({auth, params}: HttpContextContract) {
+        await auth.use('api').authenticate()
+        const member = await FamilyMember.findOrFail(params.id)
+        await member.delete()
+        return member;
+    }
 }
