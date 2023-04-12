@@ -47,15 +47,25 @@ export default class ExerciseLogsController {
         return this.saveExerciseLog(exerciseLog, exerciseLogPayload, user)
     }
 
+    public async update({ request, auth, params }: HttpContextContract) {
+        const exerciseLogSchema = this.getExerciseLogSchema()
+
+        const exerciseLogPayload = await request.validate({ schema: exerciseLogSchema })
+
+        const exerciseLog = ExerciseLog.findOrFail(params.id)
+        const user = await this.authenticate({ auth })
+        return this.saveExerciseLog(exerciseLog, exerciseLogPayload, user)
+    }
+
     public async show({ params, auth }: HttpContextContract) {
         await auth.use('api').authenticate()
         const familyMember = await FamilyMember.findOrFail(params.id)
         return ExerciseLog.query().where('family_member_id', '=', familyMember.id)
     }
 
-    public async destroy({params}: HttpContextContract) {
-        let log = await ExerciseLog.findOrFail(params.id);
-        await log.delete();
-        return log;
+    public async destroy({ params }: HttpContextContract) {
+        let log = await ExerciseLog.findOrFail(params.id)
+        await log.delete()
+        return log
     }
 }
