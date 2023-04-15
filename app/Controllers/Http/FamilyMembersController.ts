@@ -56,4 +56,23 @@ export default class FamilyMembersController {
             user_id: auth.use('api').user?.id,
         })
     }
+
+    public async update({params, auth, request}: HttpContextContract) {
+        await auth.use('api').authenticate()
+        const familyMemberSchema = this.getFamilyMemberSchema()
+        const familyMember = await FamilyMember.findOrFail(params.id)
+        const requestBody = await request.validate({schema:familyMemberSchema})
+        familyMember.name = requestBody.name
+        familyMember.user_id = requestBody.user_id
+        await familyMember.load('user')
+        await familyMember.save()
+        return familyMember
+    }
+
+    public async destroy({auth, params}: HttpContextContract) {
+        await auth.use('api').authenticate()
+        const member = await FamilyMember.findOrFail(params.id)
+        await member.delete()
+        return member;
+    }
 }
