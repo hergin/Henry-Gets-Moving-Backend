@@ -15,6 +15,8 @@ export default class extends BaseSchema {
                 .notNullable()
                 .unsigned()
                 .references('family_members.id')
+                .onDelete('CASCADE')
+                .onUpdate('CASCADE')
             table.integer('user_id').notNullable().unsigned().references('users.id')
             table.string('date')
 
