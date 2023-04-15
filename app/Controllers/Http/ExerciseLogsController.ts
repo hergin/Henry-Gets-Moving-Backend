@@ -52,7 +52,7 @@ export default class ExerciseLogsController {
 
         const exerciseLogPayload = await request.validate({ schema: exerciseLogSchema })
 
-        const exerciseLog = ExerciseLog.findOrFail(params.id)
+        const exerciseLog = await ExerciseLog.findOrFail(params.id)
         const user = await this.authenticate({ auth })
         return this.saveExerciseLog(exerciseLog, exerciseLogPayload, user)
     }
