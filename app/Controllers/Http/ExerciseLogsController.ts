@@ -9,7 +9,6 @@ export default class ExerciseLogsController {
             type: schema.string(),
             intensity: schema.string(),
             duration: schema.number(),
-            name: schema.string(),
             family_member_id: schema.number(),
             date: schema.string(),
         })
@@ -24,7 +23,6 @@ export default class ExerciseLogsController {
         exerciseLog.type = payload.type
         exerciseLog.intensity = payload.intensity
         exerciseLog.duration = payload.duration
-        exerciseLog.name = payload.name
         exerciseLog.family_member_id = payload.family_member_id
         exerciseLog.date = payload.date
         await exerciseLog.related('user').associate(user)

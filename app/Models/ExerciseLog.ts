@@ -17,9 +17,6 @@ export default class ExerciseLog extends BaseModel {
     public duration: number
 
     @column()
-    public name: string
-
-    @column()
     public family_member_id: number
 
     @column()
