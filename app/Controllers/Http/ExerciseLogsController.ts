@@ -32,7 +32,7 @@ export default class ExerciseLogsController {
 
     public async index({ auth }: HttpContextContract) {
         await auth.use('api').authenticate()
-        return ExerciseLog.query().where('user_id', '=', auth.user!.id)
+        return ExerciseLog.query().where('user_id', '=', auth.user!.id).preload('familyMember')
     }
 
     public async store({ request, auth }: HttpContextContract) {
@@ -58,7 +58,7 @@ export default class ExerciseLogsController {
     public async show({ params, auth }: HttpContextContract) {
         await auth.use('api').authenticate()
         const familyMember = await FamilyMember.findOrFail(params.id)
-        return ExerciseLog.query().where('family_member_id', '=', familyMember.id)
+        return ExerciseLog.query().where('family_member_id', '=', familyMember.id).preload('familyMember')
     }
 
     public async destroy({ params }: HttpContextContract) {
