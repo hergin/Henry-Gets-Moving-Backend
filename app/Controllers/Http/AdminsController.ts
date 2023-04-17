@@ -12,6 +12,6 @@ export default class AdminsController {
     public async verifyAdmin({ request }: HttpContextContract) {
         const adminSchema = this.getAdminSchema()
         const adminPayload = await request.validate({ schema: adminSchema })
-        return adminPayload.password === Env.get('ADMIN_PASS')
+        return { access: adminPayload.password === Env.get('ADMIN_PASS') }
     }
 }
