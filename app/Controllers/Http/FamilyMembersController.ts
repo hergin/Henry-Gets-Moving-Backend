@@ -57,11 +57,11 @@ export default class FamilyMembersController {
         })
     }
 
-    public async update({params, auth, request}: HttpContextContract) {
+    public async update({ params, auth, request }: HttpContextContract) {
         await auth.use('api').authenticate()
         const familyMemberSchema = this.getFamilyMemberSchema()
         const familyMember = await FamilyMember.findOrFail(params.id)
-        const requestBody = await request.validate({schema:familyMemberSchema})
+        const requestBody = await request.validate({ schema: familyMemberSchema })
         familyMember.name = requestBody.name
         familyMember.user_id = requestBody.user_id
         await familyMember.load('user')
@@ -69,10 +69,10 @@ export default class FamilyMembersController {
         return familyMember
     }
 
-    public async destroy({auth, params}: HttpContextContract) {
+    public async destroy({ auth, params }: HttpContextContract) {
         await auth.use('api').authenticate()
         const member = await FamilyMember.findOrFail(params.id)
         await member.delete()
-        return member;
+        return member
     }
 }

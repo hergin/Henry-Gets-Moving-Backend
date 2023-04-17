@@ -9,7 +9,6 @@ export default class ExerciseLogsController {
             type: schema.string(),
             intensity: schema.string(),
             duration: schema.number(),
-            name: schema.string(),
             family_member_id: schema.number(),
             date: schema.string(),
         })
@@ -24,7 +23,6 @@ export default class ExerciseLogsController {
         exerciseLog.type = payload.type
         exerciseLog.intensity = payload.intensity
         exerciseLog.duration = payload.duration
-        exerciseLog.name = payload.name
         exerciseLog.family_member_id = payload.family_member_id
         exerciseLog.date = payload.date
         await exerciseLog.related('user').associate(user)
@@ -34,7 +32,7 @@ export default class ExerciseLogsController {
 
     public async index({ auth }: HttpContextContract) {
         await auth.use('api').authenticate()
-        return ExerciseLog.query().where('user_id', '=', auth.user!.id)
+        return ExerciseLog.query().where('user_id', '=', auth.user!.id).preload('familyMember')
     }
 
     public async store({ request, auth }: HttpContextContract) {
@@ -60,7 +58,7 @@ export default class ExerciseLogsController {
     public async show({ params, auth }: HttpContextContract) {
         await auth.use('api').authenticate()
         const familyMember = await FamilyMember.findOrFail(params.id)
-        return ExerciseLog.query().where('family_member_id', '=', familyMember.id)
+        return ExerciseLog.query().where('family_member_id', '=', familyMember.id).preload('familyMember')
     }
 
     public async destroy({ params }: HttpContextContract) {
