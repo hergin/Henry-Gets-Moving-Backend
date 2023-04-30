@@ -21,7 +21,6 @@ test.group('Exercise log', () => {
                 family_member_id: 1,
                 id: 1,
                 intensity: 'Vigorous',
-                name: 'Test child',
                 type: 'Test exercise log 1',
                 user_id: 1,
             },
