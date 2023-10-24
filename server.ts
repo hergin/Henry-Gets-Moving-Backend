@@ -13,7 +13,17 @@
 import 'reflect-metadata'
 import sourceMapSupport from 'source-map-support'
 import { Ignitor } from '@adonisjs/core/build/standalone'
+import { createServer } from "https";
+import { readFileSync } from 'fs';
 
 sourceMapSupport.install({ handleUncaughtExceptions: false })
 
-new Ignitor(__dirname).httpServer().start()
+new Ignitor(__dirname).httpServer().start((handle)=>{
+  return createServer(
+	    {
+		    key:readFileSync("henrygetsmoving_community_bsu_edu.key","utf-8"),
+		    cert:readFileSync("henrygetsmoving_community_bsu_edu_cert.cer","utf-8"),
+	    },
+	    handle
+  );
+})
